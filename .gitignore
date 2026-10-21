@@ -1,0 +1,55 @@
+# ---- Android / Gradle build output ----
+*.apk
+*.aab
+*.aar
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+release/
+build/
+.gradle/
+.cxx/
+
+# ---- Local machine configuration (never commit: contains SDK paths) ----
+local.properties
+
+# ---- Android Studio / IntelliJ ----
+*.iml
+.idea/
+captures/
+.navigation/
+.externalNativeBuild/
+
+# ---- Keystores and secrets ----
+*.jks
+*.keystore
+google-services.json
+secrets.properties
+
+# ---- Logs, profiling, crash dumps ----
+*.log
+*.hprof
+
+# ---- Lint ----
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
+lint/reports/
+
+# ---- macOS ----
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# ---- Windows ----
+Thumbs.db
+Desktop.ini
+
+# ---- Linux ----
+*~
+.directory
