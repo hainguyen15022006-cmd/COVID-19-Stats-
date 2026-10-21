@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CovidStats</string>
+    <string name="m1_welcome">Hello World!</string>
+    <string name="m1_invalid_country_code">Please use a two-letter country code, for example VN.</string>
+    <string name="m1_country_not_found">No sample data was found for country %1$s.</string>
+    <string name="m1_history_unavailable">The M1 samples contain history for Vietnam and the world only. History for %1$s is not available yet.</string>
+    <string name="m1_invalid_history_days">Choose a positive number of days or ALL_DAYS.</string>
+    <string name="m1_sample_read_error">Could not read the sample data. Please try again.</string>
+</resources>

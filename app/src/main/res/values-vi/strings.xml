@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CovidStats</string>
+    <string name="m1_welcome">Xin chào!</string>
+    <string name="m1_invalid_country_code">Hãy dùng mã quốc gia gồm hai chữ cái, ví dụ VN.</string>
+    <string name="m1_country_not_found">Không tìm thấy dữ liệu mẫu cho quốc gia %1$s.</string>
+    <string name="m1_history_unavailable">Bộ mẫu M1 chỉ có lịch sử Việt Nam và toàn cầu. Chưa có lịch sử cho %1$s.</string>
+    <string name="m1_invalid_history_days">Hãy chọn số ngày lớn hơn 0 hoặc ALL_DAYS.</string>
+    <string name="m1_sample_read_error">Không đọc được dữ liệu mẫu. Vui lòng thử lại.</string>
+</resources>
