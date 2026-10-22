@@ -7,4 +7,11 @@
     <string name="m1_history_unavailable">Bộ mẫu M1 chỉ có lịch sử Việt Nam và toàn cầu. Chưa có lịch sử cho %1$s.</string>
     <string name="m1_invalid_history_days">Hãy chọn số ngày lớn hơn 0 hoặc ALL_DAYS.</string>
     <string name="m1_sample_read_error">Không đọc được dữ liệu mẫu. Vui lòng thử lại.</string>
+    <string name="country_row_numbers">%1$s ca · %2$s tử vong</string>
+    <string name="country_flag_description">Cờ quốc gia</string>
+    <string name="country_search_hint">Tìm theo tên hoặc mã, ví dụ viet, vn, usa</string>
+    <string name="country_empty_no_result">Không có quốc gia nào khớp.</string>
+    <string name="country_empty_no_data">Chưa có dữ liệu để hiển thị.</string>
+    <string name="country_continent_all">Tất cả châu lục</string>
+    <string name="country_selected">Đã chọn %1$s</string>
 </resources>
