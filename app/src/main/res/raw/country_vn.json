@@ -1,0 +1,32 @@
+{
+  "updated": 1792604496030,
+  "country": "Vietnam",
+  "countryInfo": {
+    "_id": 704,
+    "iso2": "VN",
+    "iso3": "VNM",
+    "lat": 21,
+    "long": 105.8,
+    "flag": "https://disease.sh/assets/img/flags/vn.png"
+  },
+  "cases": 11625195,
+  "todayCases": 0,
+  "deaths": 43206,
+  "todayDeaths": 0,
+  "recovered": 10640971,
+  "todayRecovered": 0,
+  "active": 941018,
+  "critical": 0,
+  "casesPerOneMillion": 117481,
+  "deathsPerOneMillion": 437,
+  "tests": 85826548,
+  "testsPerOneMillion": 867342,
+  "population": 98953541,
+  "continent": "Asia",
+  "oneCasePerPeople": 9,
+  "oneDeathPerPeople": 2290,
+  "oneTestPerPeople": 1,
+  "activePerOneMillion": 9509.7,
+  "recoveredPerOneMillion": 107535.02,
+  "criticalPerOneMillion": 0
+}
