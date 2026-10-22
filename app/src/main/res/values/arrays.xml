@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="country_sort_options">
+        <item>Total cases</item>
+        <item>Deaths</item>
+        <item>Cases per million</item>
+        <item>Name A-Z</item>
+    </string-array>
+</resources>

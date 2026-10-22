@@ -8,6 +8,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import vn.edu.usth.covidstats.ui.CountryListFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,5 +22,13 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // TAM THOI: gan thang danh sach quoc gia de xem ket qua.
+        // Khi Sy Chuc lam xong ViewPager 3 tab thi xoa doan nay.
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.main, new CountryListFragment())
+                    .commit();
+        }
     }
 }
