@@ -33,12 +33,23 @@ android {
 }
 
 dependencies {
+    // Mang va bieu do
     implementation(libs.volley)
     implementation(libs.mpandroidchart)
-    implementation(libs.activity.ktx)
+
+    // Khung giao dien
     implementation(libs.appcompat)
-    implementation(libs.constraintlayout)
     implementation(libs.material)
+    implementation(libs.activity)
+    implementation(libs.constraintlayout)
+
+    // Man hinh, tab va danh sach
+    implementation(libs.fragment)
+    implementation(libs.viewpager)
+    implementation(libs.recyclerview)
+    implementation(libs.swiperefreshlayout)
+
+    // Kiem thu
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)
