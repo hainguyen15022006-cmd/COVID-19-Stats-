@@ -6,4 +6,17 @@
     <string name="m1_history_unavailable">The M1 samples contain history for Vietnam and the world only. History for %1$s is not available yet.</string>
     <string name="m1_invalid_history_days">Choose a positive number of days or ALL_DAYS.</string>
     <string name="m1_sample_read_error">Could not read the sample data. Please try again.</string>
+    <string name="country_row_numbers">%1$s cases · %2$s deaths</string>
+    <string name="country_flag_description">Country flag</string>
+    <string name="country_search_hint">Search by name or code, e.g. viet, vn, usa</string>
+    <string name="country_empty_no_result">No country matches your search.</string>
+    <string name="country_empty_no_data">No data to show yet.</string>
+    <string name="country_continent_all">All continents</string>
+    <string name="country_selected">Selected %1$s</string>
+    <string name="continent_africa">Africa</string>
+    <string name="continent_asia">Asia</string>
+    <string name="continent_australia_oceania">Australia-Oceania</string>
+    <string name="continent_europe">Europe</string>
+    <string name="continent_north_america">North America</string>
+    <string name="continent_south_america">South America</string>
 </resources>

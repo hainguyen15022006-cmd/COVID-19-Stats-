@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="country_sort_options">
+        <item>Tổng ca</item>
+        <item>Tử vong</item>
+        <item>Ca/1 triệu dân</item>
+        <item>Tên A-Z</item>
+    </string-array>
+</resources>
