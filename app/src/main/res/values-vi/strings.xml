@@ -14,4 +14,10 @@
     <string name="country_empty_no_data">Chưa có dữ liệu để hiển thị.</string>
     <string name="country_continent_all">Tất cả châu lục</string>
     <string name="country_selected">Đã chọn %1$s</string>
+    <string name="continent_africa">Châu Phi</string>
+    <string name="continent_asia">Châu Á</string>
+    <string name="continent_australia_oceania">Châu Đại Dương</string>
+    <string name="continent_europe">Châu Âu</string>
+    <string name="continent_north_america">Bắc Mỹ</string>
+    <string name="continent_south_america">Nam Mỹ</string>
 </resources>

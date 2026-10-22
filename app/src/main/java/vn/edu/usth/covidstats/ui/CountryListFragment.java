@@ -51,6 +51,13 @@ public class CountryListFragment extends Fragment
 
     private final List<CountryStats> allCountries = new ArrayList<>();
 
+    /**
+     * Gia tri chau luc goc tu API, cung thu tu voi cac muc trong spinner.
+     * Vi tri 0 la null, nghia la "tat ca chau luc".
+     * Phai giu rieng vi chu tren spinner da dich sang tieng Viet, khong con khop du lieu.
+     */
+    private final List<String> continentValues = new ArrayList<>();
+
     private CountryAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView listView;
@@ -143,12 +150,19 @@ public class CountryListFragment extends Fragment
                 continents.add(country.continent);
             }
         }
-        List<String> options = new ArrayList<>();
-        options.add(getString(R.string.country_continent_all));
-        options.addAll(continents);
+
+        continentValues.clear();
+        continentValues.add(null);
+        continentValues.addAll(continents);
+
+        List<String> labels = new ArrayList<>();
+        labels.add(getString(R.string.country_continent_all));
+        for (String raw : continents) {
+            labels.add(continentLabel(raw));
+        }
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(),
-                android.R.layout.simple_spinner_item, options);
+                android.R.layout.simple_spinner_item, labels);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         continentSpinner.setAdapter(spinnerAdapter);
         continentSpinner.setOnItemSelectedListener(new SimpleSelectionListener());
@@ -191,13 +205,37 @@ public class CountryListFragment extends Fragment
         showEmptyViewIfNeeded(shown.isEmpty());
     }
 
-    /** Tra ve null neu dang chon "tat ca chau luc". */
+    /** Tra ve gia tri goc cua API, hoac null neu dang chon "tat ca chau luc". */
     private String selectedContinent() {
-        if (continentSpinner.getAdapter() == null
-                || continentSpinner.getSelectedItemPosition() <= 0) {
+        int position = continentSpinner.getSelectedItemPosition();
+        if (position < 0 || position >= continentValues.size()) {
             return null;
         }
-        return (String) continentSpinner.getSelectedItem();
+        return continentValues.get(position);
+    }
+
+    /**
+     * Doi ten chau luc tu API sang chu hien thi.
+     * API chi tra tieng Anh va chi co 6 gia tri nen dich duoc het.
+     * Gap gia tri la thi hien nguyen van, khong bo mat muc do.
+     */
+    private String continentLabel(String raw) {
+        switch (raw) {
+            case "Africa":
+                return getString(R.string.continent_africa);
+            case "Asia":
+                return getString(R.string.continent_asia);
+            case "Australia-Oceania":
+                return getString(R.string.continent_australia_oceania);
+            case "Europe":
+                return getString(R.string.continent_europe);
+            case "North America":
+                return getString(R.string.continent_north_america);
+            case "South America":
+                return getString(R.string.continent_south_america);
+            default:
+                return raw;
+        }
     }
 
     /**
