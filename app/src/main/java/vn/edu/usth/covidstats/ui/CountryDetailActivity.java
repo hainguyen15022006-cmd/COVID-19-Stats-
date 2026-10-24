@@ -78,8 +78,7 @@ public final class CountryDetailActivity extends AppCompatActivity {
 
         CovidApp app = (CovidApp) getApplication();
         repository = app.getRepository();
-        imageLoader = new ImageLoader(app.getRequestQueue(), ImageLoader.getImageListener(
-                flag, android.R.color.transparent, android.R.color.transparent));
+        imageLoader = app.getImageLoader();
 
         Object retained = getLastCustomNonConfigurationInstance();
         if (retained instanceof LoadState) {
