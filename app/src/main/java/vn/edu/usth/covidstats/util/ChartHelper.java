@@ -1,6 +1,7 @@
 package vn.edu.usth.covidstats.util;
 
-import android.graphics.Color;
+
+import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -73,12 +74,12 @@ public final class ChartHelper {
         if (!caseEntries.isEmpty()) {
             lineData.addDataSet(createDataSet(caseEntries,
                     chart.getContext().getString(R.string.detail_chart_cases),
-                    Color.rgb(33, 150, 243)));
+                    ContextCompat.getColor(chart.getContext(), R.color.chart_cases)));
         }
         if (!deathEntries.isEmpty()) {
             lineData.addDataSet(createDataSet(deathEntries,
                     chart.getContext().getString(R.string.detail_chart_deaths),
-                    Color.rgb(211, 47, 47)));
+                    ContextCompat.getColor(chart.getContext(), R.color.chart_deaths)));
         }
 
         XAxis xAxis = chart.getXAxis();

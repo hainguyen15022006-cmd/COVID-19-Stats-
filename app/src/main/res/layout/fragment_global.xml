@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/global_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/global_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:accessibilityLiveRegion="polite"
+                android:paddingBottom="12dp"
+                android:text="@string/global_loading" />
+
+            <TextView
+                android:id="@+id/global_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:accessibilityLiveRegion="assertive"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/global_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/global_retry"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/global_data_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:textStyle="italic"
+                android:visibility="gone" />
+                
+            <GridLayout
+                android:id="@+id/global_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:useDefaultMargins="true">
+
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_columnWeight="1" android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="@string/global_cases_label" />
+                    <TextView android:id="@+id/global_cases" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="@string/detail_value_unavailable" android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_columnWeight="1" android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="@string/global_deaths_label" />
+                    <TextView android:id="@+id/global_deaths" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="@string/detail_value_unavailable" android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_columnWeight="1" android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="@string/global_recovered_label" />
+                    <TextView android:id="@+id/global_recovered" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="@string/detail_value_unavailable" android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_columnWeight="1" android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="@string/global_active_label" />
+                    <TextView android:id="@+id/global_active" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="@string/detail_value_unavailable" android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_columnWeight="1" android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="@string/global_critical_label" />
+                    <TextView android:id="@+id/global_critical" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="@string/detail_value_unavailable" android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_columnWeight="1" android:orientation="vertical" android:padding="12dp">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="@string/global_tests_label" />
+                    <TextView android:id="@+id/global_tests" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:text="@string/detail_value_unavailable" android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </GridLayout>
+
+            <TextView
+                android:id="@+id/global_chart_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingBottom="8dp"
+                android:text="@string/global_history_label"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/global_chart"
+                android:layout_width="match_parent"
+                android:layout_height="260dp" />
+
+            <TextView
+                android:id="@+id/global_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="24dp"
+                android:text="@string/country_empty_no_data"
+                android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

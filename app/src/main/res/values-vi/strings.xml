@@ -69,4 +69,23 @@
     <string name="m3_server_error">Máy chủ trả về lỗi %1$d. Vui lòng thử lại.</string>
     <string name="m3_no_network">Không kết nối được và chưa có dữ liệu đã lưu. Hãy kiểm tra kết nối rồi thử lại.</string>
     <string name="m3_request_failed">Không tải được dữ liệu. Vui lòng thử lại.</string>
+    <string name="main_tab_global">Toàn cầu</string>
+    <string name="main_tab_countries">Quốc gia</string>
+    <string name="main_tab_watchlist">Theo dõi</string>
+    <string name="main_action_refresh">Làm mới</string>
+    <string name="global_loading">Đang tải dữ liệu…</string>
+    <string name="global_empty">Chưa có dữ liệu để hiển thị.</string>
+    <string name="global_retry">Thử lại</string>
+    <string name="global_cases_label">Ca nhiễm</string>
+    <string name="global_deaths_label">Tử vong</string>
+    <string name="global_recovered_label">Hồi phục</string>
+    <string name="global_active_label">Đang điều trị</string>
+    <string name="global_critical_label">Nguy kịch</string>
+    <string name="global_tests_label">Xét nghiệm</string>
+    <string name="global_history_label">Ca nhiễm và tử vong theo thời gian</string>
+    <string name="global_history_empty">Không có dữ liệu lịch sử.</string>
+    <string name="global_chart_cases_axis_left">Ca nhiễm (trục trái)</string>
+    <string name="global_chart_deaths_axis_right">Tử vong (trục phải)</string>
+    <string name="global_unit_million"> tr</string>
+    <string name="global_data_as_of">Số liệu tính đến %1$s</string>
 </resources>
