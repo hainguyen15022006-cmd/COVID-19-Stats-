@@ -10,14 +10,20 @@ Kiểm thử UI xác nhận rỗng, thêm VN/US, tạo lại Activity, vuốt b�
 Người dùng đã xác nhận thử tay thành công: thêm VN/US, vuốt bỏ VN, Refresh vẫn giữ US;
 force stop/mở lại vẫn giữ US; ngắt mạng/Refresh vẫn có US và nhãn offline.
 Các xác nhận thử tay hiện nằm trong hội thoại, chưa có ảnh/log đính kèm cho nhóm.
-Cache mạng toàn app T03 vẫn chờ tích hợp Repository thật. Người dùng sẽ tự push GitHub.
+Ngày 24/10/2026: đã ghép `origin/feat/networknew` tại `55ece8d` vào nhánh local feat/storage.
+Repository thật đã dùng CacheManager. Kiểm chứng tải API thật, tắt tiến trình, đọc offline
+được global và 231 quốc gia trong 432 ms; Watchlist hiển thị số liệu và nhãn offline.
+Sau khi bật mạng và Refresh, request thật thành công và nhãn offline biến mất.
+Ảnh/log nằm trong `docs/evidence/f12-2026-10-24/`. Đây là bằng chứng tầng dữ liệu và
+Watchlist chạy trong host debug; màn chính ba tab/chi tiết của nhóm vẫn chờ tích hợp.
+Người dùng sẽ tự push GitHub.
 
 ## Màn thử debug
 
 `app/src/debug/` có StoragePreviewActivity, manifest và tài nguyên riêng. Chỉ bản debug
 có thêm biểu tượng launcher Storage Test/Thử lưu trữ, không đổi MainActivity của nhóm.
 Gắn sao VN và US bằng các nút phía trên, sau đó vuốt trực tiếp trong WatchlistFragment thật.
-Màn thử dùng FakeRepository hiện tại; không lấy nó làm bằng chứng cache mạng offline.
+Màn thử hiện dùng NetworkRepository từ CovidApp, lấy dữ liệu API thật và cache file.
 
 Mở lại màn thử bằng Terminal:
 
@@ -31,10 +37,10 @@ Chạy riêng bài kiểm thử UI (đã tránh API Espresso cũ không tương 
 .\gradlew.bat :app:connectedDebugAndroidTest --no-configuration-cache "-Pandroid.testInstrumentationRunnerArguments.class=vn.edu.usth.covidstats.WatchlistPreviewTest"
 ```
 
-Main hiện sử dụng FakeRepository, chỉ mở CountryListFragment. Chưa có Repository mạng,
-CountryDetailActivity hoặc bộ 3 tab. Vì vậy việc thêm các file này chưa tự làm xuất hiện tab
-Theo dõi và chưa cung cấp cache offline cho tất cả màn hình. Các điểm tích hợp ở dưới thuộc
-Tấn Thành, Sỹ Chúc và Công Thành; không sửa thay file của họ trong nhánh này.
+Nhánh local hiện có Repository mạng của Tấn Thành. MainActivity vẫn chỉ mở CountryListFragment;
+Watchlist được kiểm tra trong host debug riêng. Phần Công Thành và Sỹ Chúc chưa được ghép
+vào nhánh này theo yêu cầu người dùng. Các hướng dẫn CacheManager dưới đây mô tả hợp đồng
+đã được NetworkRepository sử dụng; hướng dẫn tab/nút sao vẫn dành cho bước tích hợp sau.
 
 ## API mới cho nhóm dùng
 
@@ -133,11 +139,11 @@ restart hay UI; kiểm tra thủ công bên dưới vẫn bắt buộc.
 - [x] Trong màn thử debug: gắn US; bỏ VN không mất US; vuốt bỏ dòng cập nhật ngay.
 - [ ] Force stop rồi mở lại: sao còn đúng; chụp ảnh trước/sau (T10).
 - [ ] Xoay màn hình lúc đang tải và sau khi có dữ liệu: không crash, không request lặp vì rotation.
-- [ ] Có Repository thật: tải thành công, force stop, bật máy bay, mở lại/Refresh:
-      dữ liệu từ file vẫn hiện và có “Đang offline” (T03); chụp ảnh + log.
+- [x] Repository thật: tải thành công, force stop, tắt Wi-Fi/data, đọc lại ở tiến trình mới;
+      dữ liệu file và nhãn offline có trên Watchlist debug (24/10, ảnh + log trong evidence).
 - [ ] Cache cũ hơn 10 phút vẫn fallback offline; cache mới online không gọi API nếu không Refresh.
 - [ ] Mất mạng/chưa cache: lỗi dễ hiểu + Thử lại; cache hỏng không crash.
-- [ ] Có mạng trở lại, Refresh: dữ liệu mới và nhãn offline biến mất.
+- [x] Có mạng trở lại, Refresh: log NETWORK countries và nhãn offline biến mất (24/10).
 - [ ] Đổi Anh/Việt; chạy StrictMode để xác nhận không disk I/O trên main.
 
 ## Ba ý để giải thích
@@ -170,5 +176,6 @@ Các file ngoài 5 file sản phẩm: strings theo ngoại lệ tài liệu, tes
 Không đổi CovidRepository/model, Manifest, Gradle hay màn của thành viên khác.
 
 Đã chạy thử: **điền kết quả thật và ảnh/log trước khi gửi**.
-Phụ thuộc tích hợp: Repository mạng (Tấn Thành), tab/pager (Sỹ Chúc), nút sao/chi tiết (Công Thành).
+Repository mạng đã ghép và kiểm chứng F12 trong host debug. Còn phụ thuộc tab/pager
+(Sỹ Chúc) và nút sao/chi tiết (Công Thành) để kiểm tra luồng app chung.
 Người review theo tài liệu: Tấn Thành; nhóm trưởng phối hợp duyệt.
