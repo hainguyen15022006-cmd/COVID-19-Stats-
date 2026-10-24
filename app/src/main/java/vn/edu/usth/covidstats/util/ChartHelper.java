@@ -5,12 +5,13 @@ import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -60,7 +61,7 @@ public final class ChartHelper {
         for (int sourceIndex = start; sourceIndex < data.dates.size(); sourceIndex++) {
             String date = data.dates.get(sourceIndex);
             int chartIndex = sourceIndex - start;
-            labels.add(formatDateLabel(date));
+            labels.add(formatDateLabel(date, normalizedDays));
             addEntry(caseEntries, data.cases, date, chartIndex);
             addEntry(deathEntries, data.deaths, date, chartIndex);
         }
@@ -77,9 +78,13 @@ public final class ChartHelper {
                     ContextCompat.getColor(chart.getContext(), R.color.chart_cases)));
         }
         if (!deathEntries.isEmpty()) {
-            lineData.addDataSet(createDataSet(deathEntries,
+            LineDataSet deathSet = createDataSet(deathEntries,
                     chart.getContext().getString(R.string.detail_chart_deaths),
-                    ContextCompat.getColor(chart.getContext(), R.color.chart_deaths)));
+                    ContextCompat.getColor(chart.getContext(), R.color.chart_deaths));
+            // Số ca tử vong nhỏ hơn số ca nhiễm hàng trăm lần: vẽ trên trục phải riêng,
+            // nếu không đường tử vong sẽ nằm bẹp ở 0 (giống tab Toàn cầu).
+            deathSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            lineData.addDataSet(deathSet);
         }
 
         XAxis xAxis = chart.getXAxis();
@@ -87,7 +92,8 @@ public final class ChartHelper {
         xAxis.setAxisMinimum(0f);
         xAxis.setAxisMaximum(Math.max(0, labels.size() - 1));
         if (labels.size() > 1) {
-            xAxis.setLabelCount(Math.min(6, labels.size()), false);
+            // Ít nhãn hơn và nhãn ngắn hơn để chữ ngày không đè lên nhau trên màn dọc.
+            xAxis.setLabelCount(Math.min(4, labels.size()), false);
         }
         chart.setData(lineData);
         chart.notifyDataSetChanged();
@@ -105,8 +111,16 @@ public final class ChartHelper {
         chart.setScaleEnabled(true);
         chart.setPinchZoom(true);
         chart.setNoDataText(chart.getContext().getString(R.string.detail_history_empty));
-        chart.getAxisRight().setEnabled(false);
-        chart.getAxisLeft().setAxisMinimum(0f);
+        int casesColor = ContextCompat.getColor(chart.getContext(), R.color.chart_cases);
+        int deathsColor = ContextCompat.getColor(chart.getContext(), R.color.chart_deaths);
+        YAxis left = chart.getAxisLeft();
+        left.setAxisMinimum(0f);
+        left.setTextColor(casesColor);
+        YAxis right = chart.getAxisRight();
+        right.setEnabled(true);
+        right.setAxisMinimum(0f);
+        right.setDrawGridLines(false);
+        right.setTextColor(deathsColor);
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
@@ -141,7 +155,8 @@ public final class ChartHelper {
         chart.invalidate();
     }
 
-    private static String formatDateLabel(String source) {
+    /** 30/90 ngày: "Feb 8" / "8 thg 2". 365 ngày và tất cả: "Feb 2023" / "thg 2 2023". */
+    private static String formatDateLabel(String source, int days) {
         if (source == null) {
             return "";
         }
@@ -159,7 +174,10 @@ public final class ChartHelper {
             calendar.setLenient(false);
             calendar.set(year, Integer.parseInt(parts[0]) - 1,
                     Integer.parseInt(parts[1]));
-            return DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+            boolean shortRange = days != CovidRepository.ALL_DAYS && days <= 90;
+            String pattern = android.text.format.DateFormat.getBestDateTimePattern(
+                    Locale.getDefault(), shortRange ? "MMMd" : "MMMyyyy");
+            return new SimpleDateFormat(pattern, Locale.getDefault())
                     .format(calendar.getTime());
         } catch (IllegalArgumentException exception) {
             return source;
