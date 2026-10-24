@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="country_sort_options">
-        <item>Tổng ca</item>
-        <item>Tử vong</item>
-        <item>Ca/1 triệu dân</item>
-        <item>Tên A-Z</item>
+        <item>@string/country_sort_total_cases</item>
+        <item>@string/country_sort_deaths</item>
+        <item>@string/country_sort_cases_per_million</item>
+        <item>@string/country_sort_name</item>
     </string-array>
 </resources>

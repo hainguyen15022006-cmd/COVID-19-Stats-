@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">CovidStats</string>
-    <string name="m1_welcome">Hello World!</string>
     <string name="m1_invalid_country_code">Please use a two-letter country code, for example VN.</string>
     <string name="m1_country_not_found">No sample data was found for country %1$s.</string>
     <string name="m1_history_unavailable">The M1 samples contain history for Vietnam and the world only. History for %1$s is not available yet.</string>
@@ -13,6 +12,10 @@
     <string name="country_empty_no_data">No data to show yet.</string>
     <string name="country_continent_all">All continents</string>
     <string name="country_selected">Selected %1$s</string>
+    <string name="country_sort_total_cases">Total cases</string>
+    <string name="country_sort_deaths">Deaths</string>
+    <string name="country_sort_cases_per_million">Cases per million</string>
+    <string name="country_sort_name">Name A-Z</string>
     <string name="continent_africa">Africa</string>
     <string name="continent_asia">Asia</string>
     <string name="continent_australia_oceania">Australia-Oceania</string>
@@ -28,11 +31,11 @@
     <string name="watchlist_missing_countries">Some followed countries are absent from the available data. Your saved stars are kept.</string>
     <string name="watchlist_storage_error">Could not read or save your watchlist. Please try again.</string>
     <string name="watchlist_detail_unavailable">The country detail screen has not been integrated yet.</string>
-<string name="m3_invalid_country">Use a two-letter country code, for example VN.</string>
-<string name="m3_invalid_days">Choose a positive number of days or ALL_DAYS.</string>
-<string name="m3_timeout">The request timed out. Please try again.</string>
-<string name="m3_bad_data">The server returned unreadable data. Please try again.</string>
-<string name="m3_server_error">The server returned error %1$d. Please try again.</string>
-<string name="m3_no_network">Cannot connect and no saved data is available. Check your connection and try again.</string>
-<string name="m3_request_failed">Could not load the data. Please try again.</string>
+    <string name="m3_invalid_country">Use a two-letter country code, for example VN.</string>
+    <string name="m3_invalid_days">Choose a positive number of days or ALL_DAYS.</string>
+    <string name="m3_timeout">The request timed out. Please try again.</string>
+    <string name="m3_bad_data">The server returned unreadable data. Please try again.</string>
+    <string name="m3_server_error">The server returned error %1$d. Please try again.</string>
+    <string name="m3_no_network">Cannot connect and no saved data is available. Check your connection and try again.</string>
+    <string name="m3_request_failed">Could not load the data. Please try again.</string>
 </resources>
