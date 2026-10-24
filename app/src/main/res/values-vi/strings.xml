@@ -20,4 +20,13 @@
     <string name="continent_europe">Châu Âu</string>
     <string name="continent_north_america">Bắc Mỹ</string>
     <string name="continent_south_america">Nam Mỹ</string>
+    <string name="watchlist_title">Theo dõi</string>
+    <string name="watchlist_loading">Đang tải danh sách theo dõi…</string>
+    <string name="watchlist_empty">Chưa theo dõi quốc gia nào. Nhấn ngôi sao trên màn hình chi tiết để thêm.</string>
+    <string name="watchlist_offline">Đang offline — hiển thị dữ liệu đã có</string>
+    <string name="watchlist_retry">Thử lại</string>
+    <string name="watchlist_swipe_hint">Vuốt quốc gia sang trái hoặc phải để bỏ theo dõi.</string>
+    <string name="watchlist_missing_countries">Một số quốc gia đã theo dõi chưa có trong dữ liệu hiện có. Các ngôi sao đã lưu vẫn được giữ.</string>
+    <string name="watchlist_storage_error">Không thể đọc hoặc lưu danh sách theo dõi. Vui lòng thử lại.</string>
+    <string name="watchlist_detail_unavailable">Màn hình chi tiết quốc gia chưa được tích hợp.</string>
 </resources>

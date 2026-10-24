@@ -1,0 +1,8 @@
+<resources>
+    <string name="storage_preview_title">Thử lưu trữ</string>
+    <string name="storage_preview_note">Thử tab Theo dõi · dữ liệu mẫu đóng gói. Màn hình này chỉ có trong bản debug.</string>
+    <string name="storage_preview_add_vn">Gắn sao VN</string>
+    <string name="storage_preview_add_us">Gắn sao US</string>
+    <string name="storage_preview_refresh">Làm mới</string>
+    <string name="storage_preview_saved">Đã lưu %1$s</string>
+</resources>
