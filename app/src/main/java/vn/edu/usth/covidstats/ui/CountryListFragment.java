@@ -1,5 +1,6 @@
 package vn.edu.usth.covidstats.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -81,7 +82,7 @@ public class CountryListFragment extends Fragment
         emptyView = view.findViewById(R.id.country_empty);
 
         CovidApp app = (CovidApp) requireActivity().getApplication();
-        adapter = new CountryAdapter(app.getRequestQueue(), this);
+        adapter = new CountryAdapter(app.getImageLoader(), this);
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
         listView.addItemDecoration(new DividerItemDecoration(requireContext(),
                 DividerItemDecoration.VERTICAL));
@@ -287,14 +288,9 @@ public class CountryListFragment extends Fragment
 
     @Override
     public void onCountryClick(CountryStats country) {
-        // Man chi tiet do Cong Thanh lam. Khi CountryDetailActivity co tren main thi doi thanh:
-        //
-        // Intent intent = new Intent(requireContext(), CountryDetailActivity.class);
-        // intent.putExtra(EXTRA_COUNTRY_ISO2, country.iso2);
-        // startActivity(intent);
-        Toast.makeText(requireContext(),
-                getString(R.string.country_selected, country.country),
-                Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(requireContext(), CountryDetailActivity.class);
+        intent.putExtra(CountryDetailActivity.EXTRA_COUNTRY_ISO2, country.iso2);
+        startActivity(intent);
     }
 
     /** Dung chung cho hai spinner: chon gi cung chi loc lai danh sach. */
