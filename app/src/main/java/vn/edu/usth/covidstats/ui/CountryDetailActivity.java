@@ -319,13 +319,18 @@ public final class CountryDetailActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Zero is a real figure reported by the API, not a missing one: 48 countries report
+     * zero recoveries and 27 report zero active cases. Only a negative value means the
+     * figure is unavailable.
+     */
     private String formatLong(long value) {
-        return value <= 0 ? getString(R.string.detail_value_unavailable)
+        return value < 0 ? getString(R.string.detail_value_unavailable)
                 : NumberFormat.getIntegerInstance(Locale.getDefault()).format(value);
     }
 
     private String formatDouble(double value) {
-        if (value <= 0 || Double.isInfinite(value) || Double.isNaN(value)) {
+        if (value < 0 || Double.isInfinite(value) || Double.isNaN(value)) {
             return getString(R.string.detail_value_unavailable);
         }
         NumberFormat format = NumberFormat.getNumberInstance(Locale.getDefault());
