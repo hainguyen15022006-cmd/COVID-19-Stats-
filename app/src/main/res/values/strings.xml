@@ -68,4 +68,23 @@
     <string name="m3_server_error">The server returned error %1$d. Please try again.</string>
     <string name="m3_no_network">Cannot connect and no saved data is available. Check your connection and try again.</string>
     <string name="m3_request_failed">Could not load the data. Please try again.</string>
+    <string name="main_tab_global">Global</string>
+    <string name="main_tab_countries">Countries</string>
+    <string name="main_tab_watchlist">Watchlist</string>
+    <string name="main_action_refresh">Refresh</string>
+    <string name="global_loading">Loading data…</string>
+    <string name="global_empty">No data to show yet.</string>
+    <string name="global_retry">Retry</string>
+    <string name="global_cases_label">Cases</string>
+    <string name="global_deaths_label">Deaths</string>
+    <string name="global_recovered_label">Recovered</string>
+    <string name="global_active_label">Active</string>
+    <string name="global_critical_label">Critical</string>
+    <string name="global_tests_label">Tests</string>
+    <string name="global_history_label">Cases and deaths over time</string>
+    <string name="global_history_empty">No history data available.</string>
+    <string name="global_chart_cases_axis_left">Cases (left axis)</string>
+    <string name="global_chart_deaths_axis_right">Deaths (right axis)</string>
+    <string name="global_unit_million">M</string>
+    <string name="global_data_as_of">Data as of %1$s</string>
 </resources>
