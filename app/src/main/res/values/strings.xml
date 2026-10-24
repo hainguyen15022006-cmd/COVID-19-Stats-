@@ -11,7 +11,6 @@
     <string name="country_empty_no_result">No country matches your search.</string>
     <string name="country_empty_no_data">No data to show yet.</string>
     <string name="country_continent_all">All continents</string>
-    <string name="country_selected">Selected %1$s</string>
     <string name="country_sort_total_cases">Total cases</string>
     <string name="country_sort_deaths">Deaths</string>
     <string name="country_sort_cases_per_million">Cases per million</string>
@@ -87,4 +86,8 @@
     <string name="global_chart_deaths_axis_right">Deaths (right axis)</string>
     <string name="global_unit_million">M</string>
     <string name="global_data_as_of">Data as of %1$s</string>
+    <string name="country_retry">Retry</string>
+    <string name="country_star_description">Followed</string>
+    <string name="country_watchlist_added">Added %1$s to the watchlist</string>
+    <string name="country_watchlist_removed">Removed %1$s from the watchlist</string>
 </resources>

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,11 +27,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TreeSet;
 
 import vn.edu.usth.covidstats.CovidApp;
 import vn.edu.usth.covidstats.R;
 import vn.edu.usth.covidstats.data.Callback;
+import vn.edu.usth.covidstats.data.WatchlistStore;
 import vn.edu.usth.covidstats.model.CountryStats;
 
 /**
@@ -63,6 +66,18 @@ public class CountryListFragment extends Fragment
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView listView;
     private TextView emptyView;
+    private View emptyBox;
+    private Button retryButton;
+    /** Loi cua lan tai gan nhat; null nghia la lan tai truoc thanh cong. */
+    private String loadError;
+    private WatchlistStore watchlistStore;
+
+    /** WatchlistStore bao moi khi danh sach sao doi, ke ca khi doi tu man chi tiet. */
+    private final WatchlistStore.Listener watchlistListener = codes -> {
+        if (isAdded()) {
+            adapter.setStarredCodes(codes);
+        }
+    };
     private EditText searchInput;
     private Spinner sortSpinner;
     private Spinner continentSpinner;
@@ -80,6 +95,8 @@ public class CountryListFragment extends Fragment
         refreshLayout = view.findViewById(R.id.country_refresh);
         listView = view.findViewById(R.id.country_list);
         emptyView = view.findViewById(R.id.country_empty);
+        emptyBox = view.findViewById(R.id.country_empty_box);
+        retryButton = view.findViewById(R.id.country_retry);
 
         CovidApp app = (CovidApp) requireActivity().getApplication();
         adapter = new CountryAdapter(app.getImageLoader(), this);
@@ -87,6 +104,10 @@ public class CountryListFragment extends Fragment
         listView.addItemDecoration(new DividerItemDecoration(requireContext(),
                 DividerItemDecoration.VERTICAL));
         listView.setAdapter(adapter);
+
+        adapter.setOnCountryLongClickListener(this::toggleWatchlist);
+        watchlistStore = WatchlistStore.getInstance(requireContext());
+        retryButton.setOnClickListener(v -> load(true));
 
         setUpSortSpinner();
         setUpContinentSpinner();
@@ -99,7 +120,27 @@ public class CountryListFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        watchlistStore.addListener(watchlistListener);
+        watchlistStore.getCodes(new Callback<Set<String>>() {
+            @Override
+            public void onSuccess(Set<String> codes, boolean fromCache) {
+                if (isAdded()) {
+                    adapter.setStarredCodes(codes);
+                }
+            }
+
+            @Override
+            public void onError(String message) {
+                // Khong doc duoc danh sach sao thi chi la khong co ngoi sao nao hien.
+            }
+        });
         load(false);
+    }
+
+    @Override
+    public void onDestroyView() {
+        watchlistStore.removeListener(watchlistListener);
+        super.onDestroyView();
     }
 
     // ----- Tai du lieu -----
@@ -115,6 +156,7 @@ public class CountryListFragment extends Fragment
                     return;
                 }
                 refreshLayout.setRefreshing(false);
+                loadError = null;
                 allCountries.clear();
                 allCountries.addAll(data);
                 setUpContinentSpinner();
@@ -127,7 +169,11 @@ public class CountryListFragment extends Fragment
                     return;
                 }
                 refreshLayout.setRefreshing(false);
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                loadError = message;
+                // Da co du lieu cu tren man thi bao nhanh; chua co gi thi bao trong khung rong.
+                if (!allCountries.isEmpty()) {
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                }
                 applyFilters();
             }
         });
@@ -275,13 +321,47 @@ public class CountryListFragment extends Fragment
     private void showEmptyViewIfNeeded(boolean empty) {
         // Dang tai thi de vong cho noi, khong hien chu "chua co du lieu".
         if (!empty || refreshLayout.isRefreshing()) {
-            emptyView.setVisibility(View.GONE);
+            emptyBox.setVisibility(View.GONE);
             return;
         }
-        emptyView.setText(allCountries.isEmpty()
-                ? R.string.country_empty_no_data
-                : R.string.country_empty_no_result);
-        emptyView.setVisibility(View.VISIBLE);
+        boolean failed = loadError != null && allCountries.isEmpty();
+        if (failed) {
+            emptyView.setText(loadError);
+        } else {
+            emptyView.setText(allCountries.isEmpty()
+                    ? R.string.country_empty_no_data
+                    : R.string.country_empty_no_result);
+        }
+        // T02: chi moi nguoi dung bam lai khi that su tai hong.
+        retryButton.setVisibility(failed ? View.VISIBLE : View.GONE);
+        emptyBox.setVisibility(View.VISIBLE);
+    }
+
+    // ----- F13: cham giu de theo doi / bo theo doi -----
+
+    private void toggleWatchlist(CountryStats country) {
+        watchlistStore.toggle(country.iso2, new Callback<Set<String>>() {
+            @Override
+            public void onSuccess(Set<String> codes, boolean fromCache) {
+                if (!isAdded()) {
+                    return;
+                }
+                adapter.setStarredCodes(codes);
+                boolean added = codes.contains(country.iso2);
+                Toast.makeText(requireContext(),
+                        getString(added ? R.string.country_watchlist_added
+                                        : R.string.country_watchlist_removed,
+                                country.country),
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(String message) {
+                if (isAdded()) {
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     // ----- Bam vao mot dong -----

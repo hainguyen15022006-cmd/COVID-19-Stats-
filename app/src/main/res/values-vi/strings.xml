@@ -12,7 +12,6 @@
     <string name="country_empty_no_result">Không có quốc gia nào khớp.</string>
     <string name="country_empty_no_data">Chưa có dữ liệu để hiển thị.</string>
     <string name="country_continent_all">Tất cả châu lục</string>
-    <string name="country_selected">Đã chọn %1$s</string>
     <string name="country_sort_total_cases">Tổng ca</string>
     <string name="country_sort_deaths">Tử vong</string>
     <string name="country_sort_cases_per_million">Ca trên một triệu dân</string>
@@ -88,4 +87,8 @@
     <string name="global_chart_deaths_axis_right">Tử vong (trục phải)</string>
     <string name="global_unit_million"> tr</string>
     <string name="global_data_as_of">Số liệu tính đến %1$s</string>
+    <string name="country_retry">Thử lại</string>
+    <string name="country_star_description">Đang theo dõi</string>
+    <string name="country_watchlist_added">Đã thêm %1$s vào danh sách theo dõi</string>
+    <string name="country_watchlist_removed">Đã bỏ %1$s khỏi danh sách theo dõi</string>
 </resources>

@@ -40,4 +40,13 @@
             android:layout_marginTop="2dp"
             android:textSize="14sp" />
     </LinearLayout>
+    <!-- F13: hien khi quoc gia dang duoc theo doi. Chạm giữ dòng để bật/tắt. -->
+    <ImageView
+        android:id="@+id/country_star"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/country_star_description"
+        android:src="@drawable/ic_star_filled_24"
+        android:visibility="gone" />
 </LinearLayout>
