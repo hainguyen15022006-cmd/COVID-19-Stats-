@@ -30,6 +30,7 @@ import vn.edu.usth.covidstats.data.Callback;
 import vn.edu.usth.covidstats.data.CovidRepository;
 import vn.edu.usth.covidstats.data.FakeRepository;
 import vn.edu.usth.covidstats.data.JsonParser;
+import vn.edu.usth.covidstats.data.NetworkRepository;
 import vn.edu.usth.covidstats.model.CountryStats;
 import vn.edu.usth.covidstats.model.GlobalStats;
 import vn.edu.usth.covidstats.model.HistoricalData;
@@ -43,14 +44,14 @@ public class M1ContractTest {
     @Before
     public void setUp() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        repository = ((CovidApp) context.getApplicationContext()).getRepository();
+        repository = new FakeRepository(context);
     }
 
     @Test
     public void applicationSharesOneRepositoryAndOneQueue() {
         CovidApp app = (CovidApp) context.getApplicationContext();
-        assertTrue(repository instanceof FakeRepository);
-        assertSame(repository, app.getRepository());
+        assertTrue(app.getRepository() instanceof NetworkRepository);
+        assertSame(app.getRepository(), app.getRepository());
         assertNotNull(app.getRequestQueue());
         assertSame(app.getRequestQueue(), app.getRequestQueue());
     }

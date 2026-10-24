@@ -29,4 +29,11 @@
     <string name="watchlist_missing_countries">Một số quốc gia đã theo dõi chưa có trong dữ liệu hiện có. Các ngôi sao đã lưu vẫn được giữ.</string>
     <string name="watchlist_storage_error">Không thể đọc hoặc lưu danh sách theo dõi. Vui lòng thử lại.</string>
     <string name="watchlist_detail_unavailable">Màn hình chi tiết quốc gia chưa được tích hợp.</string>
+<string name="m3_invalid_country">Hãy dùng mã quốc gia gồm hai chữ cái, ví dụ VN.</string>
+<string name="m3_invalid_days">Hãy chọn số ngày lớn hơn 0 hoặc ALL_DAYS.</string>
+<string name="m3_timeout">Yêu cầu đã hết thời gian chờ. Vui lòng thử lại.</string>
+<string name="m3_bad_data">Dữ liệu máy chủ trả về không đọc được. Vui lòng thử lại.</string>
+<string name="m3_server_error">Máy chủ trả về lỗi %1$d. Vui lòng thử lại.</string>
+<string name="m3_no_network">Không kết nối được và chưa có dữ liệu đã lưu. Hãy kiểm tra kết nối rồi thử lại.</string>
+<string name="m3_request_failed">Không tải được dữ liệu. Vui lòng thử lại.</string>
 </resources>
