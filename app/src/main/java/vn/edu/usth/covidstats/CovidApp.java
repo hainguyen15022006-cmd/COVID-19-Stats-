@@ -10,8 +10,9 @@ import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NoCache;
 
+import vn.edu.usth.covidstats.data.CacheManager;
 import vn.edu.usth.covidstats.data.CovidRepository;
-import vn.edu.usth.covidstats.data.FakeRepository;
+import vn.edu.usth.covidstats.data.NetworkRepository;
 import vn.edu.usth.covidstats.util.BitmapLruCache;
 
 /** Khoi tao som va giu dung mot Repository, mot RequestQueue cho ca ung dung. */
@@ -36,7 +37,7 @@ public final class CovidApp extends Application {
         requestQueue = new RequestQueue(new NoCache(), new BasicNetwork(new HurlStack()));
         requestQueue.start();
         imageLoader = new ImageLoader(requestQueue, new BitmapLruCache());
-        repository = new FakeRepository(this);
+        repository = new NetworkRepository(this, requestQueue, new CacheManager(this));
     }
 
     public CovidRepository getRepository() {

@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,11 +25,13 @@ import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import vn.edu.usth.covidstats.CovidApp;
 import vn.edu.usth.covidstats.R;
 import vn.edu.usth.covidstats.data.Callback;
 import vn.edu.usth.covidstats.data.CovidRepository;
+import vn.edu.usth.covidstats.data.WatchlistStore;
 import vn.edu.usth.covidstats.model.CountryStats;
 import vn.edu.usth.covidstats.model.HistoricalData;
 import vn.edu.usth.covidstats.util.ChartHelper;
@@ -50,6 +54,7 @@ public final class CountryDetailActivity extends AppCompatActivity {
     private Button errorRetry;
     private NetworkImageView flag;
     private TextView countryName;
+    private ImageButton watchlistButton;
     private TextView cases;
     private TextView deaths;
     private TextView recovered;
@@ -67,8 +72,12 @@ public final class CountryDetailActivity extends AppCompatActivity {
 
     private CovidRepository repository;
     private ImageLoader imageLoader;
+    private WatchlistStore watchlistStore;
     private LoadState state;
     private boolean invalidCountryCode;
+    private boolean watchlistReady;
+    private boolean starred;
+    private int watchlistGeneration;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,6 +88,7 @@ public final class CountryDetailActivity extends AppCompatActivity {
         CovidApp app = (CovidApp) getApplication();
         repository = app.getRepository();
         imageLoader = app.getImageLoader();
+        watchlistStore = WatchlistStore.getInstance(this);
 
         Object retained = getLastCustomNonConfigurationInstance();
         if (retained instanceof LoadState) {
@@ -95,6 +105,7 @@ public final class CountryDetailActivity extends AppCompatActivity {
         state.attach(this);
         if (!invalidCountryCode) {
             state.loadMissing(repository);
+            loadWatchlistState();
         }
         render();
     }
@@ -106,6 +117,7 @@ public final class CountryDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        watchlistGeneration++;
         if (state != null) {
             state.detach(this);
         }
@@ -131,6 +143,7 @@ public final class CountryDetailActivity extends AppCompatActivity {
         errorRetry = findViewById(R.id.detail_error_retry);
         flag = findViewById(R.id.detail_flag);
         countryName = findViewById(R.id.detail_country_name);
+        watchlistButton = findViewById(R.id.detail_watchlist_button);
         cases = findViewById(R.id.detail_cases_value);
         deaths = findViewById(R.id.detail_deaths_value);
         recovered = findViewById(R.id.detail_recovered_value);
@@ -149,6 +162,7 @@ public final class CountryDetailActivity extends AppCompatActivity {
 
     private void wireActions() {
         findViewById(R.id.detail_back).setOnClickListener(view -> finish());
+        watchlistButton.setOnClickListener(view -> toggleWatchlist());
         errorRetry.setOnClickListener(view -> state.retryCountry(repository));
         historyRetry.setOnClickListener(view -> state.retryHistory(repository));
         periodGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -194,6 +208,7 @@ public final class CountryDetailActivity extends AppCompatActivity {
 
     private void showCountry(CountryStats country) {
         countryName.setText(country.country);
+        updateWatchlistButton();
         flag.setContentDescription(getString(R.string.detail_country_flag, country.country));
         flag.setImageUrl(country.flag, imageLoader);
         cases.setText(formatLong(country.cases));
@@ -204,6 +219,69 @@ public final class CountryDetailActivity extends AppCompatActivity {
         population.setText(formatLong(country.population));
         casesPerMillion.setText(formatDouble(country.casesPerOneMillion));
         deathsPerMillion.setText(formatDouble(country.deathsPerOneMillion));
+    }
+
+    private void loadWatchlistState() {
+        watchlistReady = false;
+        updateWatchlistButton();
+        int request = ++watchlistGeneration;
+        watchlistStore.getCodes(new Callback<Set<String>>() {
+            @Override
+            public void onSuccess(Set<String> codes, boolean fromCache) {
+                if (request != watchlistGeneration || isFinishing() || isDestroyed()) return;
+                starred = codes.contains(state.iso2);
+                watchlistReady = true;
+                updateWatchlistButton();
+            }
+
+            @Override
+            public void onError(String message) {
+                if (request != watchlistGeneration || isFinishing() || isDestroyed()) return;
+                watchlistReady = false;
+                updateWatchlistButton();
+                showWatchlistError(message);
+            }
+        });
+    }
+
+    private void toggleWatchlist() {
+        if (!watchlistReady) return;
+        watchlistButton.setEnabled(false);
+        int request = ++watchlistGeneration;
+        watchlistStore.toggle(state.iso2, new Callback<Set<String>>() {
+            @Override
+            public void onSuccess(Set<String> codes, boolean fromCache) {
+                if (request != watchlistGeneration || isFinishing() || isDestroyed()) return;
+                starred = codes.contains(state.iso2);
+                watchlistReady = true;
+                updateWatchlistButton();
+            }
+
+            @Override
+            public void onError(String message) {
+                if (request != watchlistGeneration || isFinishing() || isDestroyed()) return;
+                // Keep the previous icon because the persistent update did not succeed.
+                watchlistReady = true;
+                updateWatchlistButton();
+                showWatchlistError(message);
+            }
+        });
+    }
+
+    private void updateWatchlistButton() {
+        if (watchlistButton == null) return;
+        watchlistButton.setEnabled(watchlistReady && !invalidCountryCode);
+        watchlistButton.setImageResource(starred
+                ? R.drawable.ic_star_filled_24 : R.drawable.ic_star_outline_24);
+        String country = state != null && state.country != null
+                ? state.country.country : state == null ? "" : state.iso2;
+        watchlistButton.setContentDescription(getString(starred
+                ? R.string.detail_watchlist_remove : R.string.detail_watchlist_add, country));
+    }
+
+    private void showWatchlistError(String message) {
+        Toast.makeText(this, nonEmpty(message, getString(R.string.detail_watchlist_error)),
+                Toast.LENGTH_LONG).show();
     }
 
     private void showHistoryState() {

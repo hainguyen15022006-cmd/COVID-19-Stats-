@@ -46,4 +46,23 @@
     <string name="detail_chart_cases">Cases</string>
     <string name="detail_chart_deaths">Deaths</string>
     <string name="detail_retry">Retry</string>
+    <string name="detail_watchlist_add">Add %1$s to watchlist</string>
+    <string name="detail_watchlist_remove">Remove %1$s from watchlist</string>
+    <string name="detail_watchlist_error">Could not update your watchlist. Please try again.</string>
+    <string name="watchlist_title">Watchlist</string>
+    <string name="watchlist_loading">Loading your watchlist…</string>
+    <string name="watchlist_empty">No countries followed yet. Tap the star on a country detail screen to add one.</string>
+    <string name="watchlist_offline">Offline — showing previously available data</string>
+    <string name="watchlist_retry">Retry</string>
+    <string name="watchlist_swipe_hint">Swipe a country left or right to stop following it.</string>
+    <string name="watchlist_missing_countries">Some followed countries are absent from the available data. Your saved stars are kept.</string>
+    <string name="watchlist_storage_error">Could not read or save your watchlist. Please try again.</string>
+    <string name="watchlist_detail_unavailable">The country detail screen has not been integrated yet.</string>
+    <string name="m3_invalid_country">Use a two-letter country code, for example VN.</string>
+    <string name="m3_invalid_days">Choose a positive number of days or ALL_DAYS.</string>
+    <string name="m3_timeout">The request timed out. Please try again.</string>
+    <string name="m3_bad_data">The server returned unreadable data. Please try again.</string>
+    <string name="m3_server_error">The server returned error %1$d. Please try again.</string>
+    <string name="m3_no_network">Cannot connect and no saved data is available. Check your connection and try again.</string>
+    <string name="m3_request_failed">Could not load the data. Please try again.</string>
 </resources>
