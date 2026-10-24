@@ -57,13 +57,32 @@
                 android:layout_height="match_parent" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <TextView
-            android:id="@+id/country_empty"
+        <!-- T02: khung bao loi/rong, co nut Thu lai khi tai that bai. -->
+        <LinearLayout
+            android:id="@+id/country_empty_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
             android:padding="24dp"
-            android:textSize="16sp"
-            android:visibility="gone" />
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/country_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/country_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:minHeight="48dp"
+                android:text="@string/country_retry"
+                android:visibility="gone" />
+        </LinearLayout>
     </FrameLayout>
 </LinearLayout>
