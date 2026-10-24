@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedResources">
+    <!-- Shared spacing scale. Screen owners can replace repeated literals with these values. -->
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">12dp</dimen>
+    <dimen name="spacing_lg">16dp</dimen>
+    <dimen name="spacing_xl">24dp</dimen>
+    <dimen name="spacing_xxl">32dp</dimen>
+
+    <!-- Accessibility and common component sizes. -->
+    <dimen name="touch_target_min">48dp</dimen>
+    <dimen name="country_flag_width">48dp</dimen>
+    <dimen name="country_flag_height">32dp</dimen>
+    <dimen name="detail_flag_width">64dp</dimen>
+    <dimen name="detail_flag_height">42dp</dimen>
+    <dimen name="chart_height">300dp</dimen>
+    <dimen name="chart_height_land">280dp</dimen>
+
+    <!-- Typography remains in sp so it follows the user's font size. -->
+    <dimen name="text_caption">12sp</dimen>
+    <dimen name="text_body">14sp</dimen>
+    <dimen name="text_label">16sp</dimen>
+    <dimen name="text_section_title">20sp</dimen>
+    <dimen name="text_screen_title">24sp</dimen>
+</resources>
