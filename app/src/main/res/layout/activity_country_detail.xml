@@ -45,6 +45,16 @@
                     android:layout_weight="1"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/detail_watchlist_button"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/watchlist_title"
+                    android:enabled="false"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_star_outline_24" />
             </LinearLayout>
 
             <TextView

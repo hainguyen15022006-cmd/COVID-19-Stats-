@@ -1,0 +1,8 @@
+<resources>
+    <string name="storage_preview_title">Storage Test</string>
+    <string name="storage_preview_note">Watchlist test · API data with offline cache. This screen is included in debug builds only.</string>
+    <string name="storage_preview_add_vn">Star VN</string>
+    <string name="storage_preview_add_us">Star US</string>
+    <string name="storage_preview_refresh">Refresh</string>
+    <string name="storage_preview_saved">Saved %1$s</string>
+</resources>
