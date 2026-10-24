@@ -7,15 +7,18 @@ import android.os.StrictMode;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NoCache;
 
+import vn.edu.usth.covidstats.data.CacheManager;
 import vn.edu.usth.covidstats.data.CovidRepository;
 import vn.edu.usth.covidstats.data.NetworkRepository;
-import vn.edu.usth.covidstats.data.CacheManager;
+import vn.edu.usth.covidstats.util.BitmapLruCache;
 
 /** Khoi tao som va giu dung mot Repository, mot RequestQueue cho ca ung dung. */
 public final class CovidApp extends Application {
     private RequestQueue requestQueue;
+    private ImageLoader imageLoader;
     private CovidRepository repository;
 
     @Override
@@ -33,6 +36,7 @@ public final class CovidApp extends Application {
         // Cache file cua app se do CacheManager so huu. Queue khong tao cache thu hai.
         requestQueue = new RequestQueue(new NoCache(), new BasicNetwork(new HurlStack()));
         requestQueue.start();
+        imageLoader = new ImageLoader(requestQueue, new BitmapLruCache());
         repository = new NetworkRepository(this, requestQueue, new CacheManager(this));
     }
 
@@ -42,5 +46,9 @@ public final class CovidApp extends Application {
 
     public RequestQueue getRequestQueue() {
         return requestQueue;
+    }
+
+    public ImageLoader getImageLoader() {
+        return imageLoader;
     }
 }

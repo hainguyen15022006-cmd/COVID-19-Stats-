@@ -1,13 +1,11 @@
 package vn.edu.usth.covidstats.ui;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -76,7 +74,7 @@ public final class WatchlistFragment extends Fragment {
         CovidApp app = (CovidApp) requireActivity().getApplication();
         store = WatchlistStore.getInstance(requireContext());
         model = new ViewModelProvider(this).get(WatchlistModel.class);
-        adapter = new CountryAdapter(app.getRequestQueue(), this::openCountry);
+        adapter = new CountryAdapter(app.getImageLoader(), this::openCountry);
         list.setLayoutManager(new LinearLayoutManager(requireContext()));
         list.setAdapter(adapter);
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -229,15 +227,9 @@ public final class WatchlistFragment extends Fragment {
     }
 
     private void openCountry(CountryStats country) {
-        Intent intent = new Intent().setClassName(requireContext(),
-                "vn.edu.usth.covidstats.ui.CountryDetailActivity");
-        intent.putExtra("country_iso2", country.iso2);
-        try {
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            // Main hien chua co Activity cua Cong Thanh; khong crash khi chua ghep.
-            Toast.makeText(requireContext(), R.string.watchlist_detail_unavailable, Toast.LENGTH_LONG).show();
-        }
+        Intent intent = new Intent(requireContext(), CountryDetailActivity.class);
+        intent.putExtra(CountryDetailActivity.EXTRA_COUNTRY_ISO2, country.iso2);
+        startActivity(intent);
     }
 
     private static final class State {

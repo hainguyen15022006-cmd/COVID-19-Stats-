@@ -1,7 +1,5 @@
 package vn.edu.usth.covidstats.ui;
 
-import android.graphics.Bitmap;
-import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
@@ -38,9 +35,9 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
     private final OnCountryClickListener listener;
     private final ImageLoader imageLoader;
 
-    public CountryAdapter(RequestQueue queue, OnCountryClickListener listener) {
+    public CountryAdapter(ImageLoader imageLoader, OnCountryClickListener listener) {
         this.listener = listener;
-        this.imageLoader = new ImageLoader(queue, new FlagCache());
+        this.imageLoader = imageLoader;
     }
 
     /** Thay toan bo danh sach dang hien (sau khi loc hoac sap xep lai). */
@@ -66,31 +63,6 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
     @Override
     public int getItemCount() {
         return items.size();
-    }
-
-    /** Bo nho dem anh co, toi da 1/8 bo nho ma he thong cap cho app. */
-    private static class FlagCache implements ImageLoader.ImageCache {
-        private final LruCache<String, Bitmap> cache;
-
-        FlagCache() {
-            int maxKb = (int) (Runtime.getRuntime().maxMemory() / 1024);
-            cache = new LruCache<String, Bitmap>(maxKb / 8) {
-                @Override
-                protected int sizeOf(String key, Bitmap value) {
-                    return value.getByteCount() / 1024;
-                }
-            };
-        }
-
-        @Override
-        public Bitmap getBitmap(String url) {
-            return cache.get(url);
-        }
-
-        @Override
-        public void putBitmap(String url, Bitmap bitmap) {
-            cache.put(url, bitmap);
-        }
     }
 
     /**

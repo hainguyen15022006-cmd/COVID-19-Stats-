@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/detail_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/detail_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:contentDescription="@string/detail_back_description"
+                        android:text="@string/detail_back" />
+
+                    <com.android.volley.toolbox.NetworkImageView
+                        android:id="@+id/detail_flag"
+                        android:layout_width="64dp"
+                        android:layout_height="42dp"
+                        android:layout_marginStart="12dp"
+                        android:contentDescription="@string/country_flag_description"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/detail_country_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/detail_watchlist_button"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/watchlist_title"
+                        android:enabled="false"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_star_outline_24" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/detail_statistics_title"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:columnCount="2"
+                    android:useDefaultMargins="true">
+
+                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_cases" />
+                    <TextView android:id="@+id/detail_cases_value" android:layout_width="wrap_content" android:textStyle="bold" />
+                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_deaths" />
+                    <TextView android:id="@+id/detail_deaths_value" android:layout_width="wrap_content" android:textStyle="bold" />
+                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_recovered" />
+                    <TextView android:id="@+id/detail_recovered_value" android:layout_width="wrap_content" android:textStyle="bold" />
+                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_active" />
+                    <TextView android:id="@+id/detail_active_value" android:layout_width="wrap_content" android:textStyle="bold" />
+                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_tests" />
+                    <TextView android:id="@+id/detail_tests_value" android:layout_width="wrap_content" android:textStyle="bold" />
+                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_population" />
+                    <TextView android:id="@+id/detail_population_value" android:layout_width="wrap_content" android:textStyle="bold" />
+                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_cases_per_million" />
+                    <TextView android:id="@+id/detail_cases_per_million_value" android:layout_width="wrap_content" android:textStyle="bold" />
+                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_deaths_per_million" />
+                    <TextView android:id="@+id/detail_deaths_per_million_value" android:layout_width="wrap_content" android:textStyle="bold" />
+                </GridLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/detail_unavailable_explanation"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_history_title"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/detail_period_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:checkedButton="@id/detail_period_all"
+                    android:orientation="horizontal">
+
+                    <RadioButton android:id="@+id/detail_period_30" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1" android:gravity="center" android:text="@string/detail_period_30" />
+                    <RadioButton android:id="@+id/detail_period_90" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1" android:gravity="center" android:text="@string/detail_period_90" />
+                    <RadioButton android:id="@+id/detail_period_365" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1" android:gravity="center" android:text="@string/detail_period_365" />
+                    <RadioButton android:id="@+id/detail_period_all" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1" android:gravity="center" android:text="@string/detail_period_all" />
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/detail_history_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/detail_source_stopped"
+                    android:textSize="12sp" />
+
+                <ProgressBar
+                    android:id="@+id/detail_history_loading"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/detail_history_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/detail_history_retry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/detail_retry"
+                    android:visibility="gone" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/detail_history_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/detail_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <LinearLayout
+        android:id="@+id/detail_error_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/detail_error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/detail_error_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/detail_retry" />
+    </LinearLayout>
+</FrameLayout>
