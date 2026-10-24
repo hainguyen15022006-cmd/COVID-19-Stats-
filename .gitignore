@@ -11,6 +11,7 @@ out/
 release/
 build/
 .gradle/
+.kotlin/
 .cxx/
 
 # ---- Local machine configuration (never commit: contains SDK paths) ----
@@ -22,6 +23,11 @@ local.properties
 captures/
 .navigation/
 .externalNativeBuild/
+
+# ---- Android Studio run/deployment output ----
+app/debug/
+app/release/
+*.prof
 
 # ---- Keystores and secrets ----
 *.jks

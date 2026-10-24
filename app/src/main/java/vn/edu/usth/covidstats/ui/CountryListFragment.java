@@ -82,7 +82,7 @@ public class CountryListFragment extends Fragment
         emptyView = view.findViewById(R.id.country_empty);
 
         CovidApp app = (CovidApp) requireActivity().getApplication();
-        adapter = new CountryAdapter(app.getRequestQueue(), this);
+        adapter = new CountryAdapter(app.getImageLoader(), this);
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
         listView.addItemDecoration(new DividerItemDecoration(requireContext(),
                 DividerItemDecoration.VERTICAL));
