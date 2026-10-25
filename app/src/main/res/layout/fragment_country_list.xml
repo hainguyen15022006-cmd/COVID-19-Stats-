@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Tab Quoc gia: o tim, hai spinner loc/sap xep, danh sach. -->
+<!--
+  focusableInTouchMode tren the goc: khong co no thi EditText ben duoi la view
+  dau tien nhan focus, ban phim tu bat ngay khi mo tab va che mat danh sach.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <EditText
