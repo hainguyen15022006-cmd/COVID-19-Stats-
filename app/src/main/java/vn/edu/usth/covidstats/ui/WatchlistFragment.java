@@ -3,7 +3,9 @@ package vn.edu.usth.covidstats.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -77,6 +79,43 @@ public final class WatchlistFragment extends Fragment {
         adapter = new CountryAdapter(app.getImageLoader(), this::openCountry);
         list.setLayoutManager(new LinearLayoutManager(requireContext()));
         list.setAdapter(adapter);
+        // Reserve horizontal gestures on rows for ItemTouchHelper before ViewPager
+        // can intercept them. Release vertical gestures for pull-to-refresh/scroll.
+        int touchSlop = ViewConfiguration.get(requireContext()).getScaledTouchSlop();
+        list.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener() {
+            private float downX;
+            private float downY;
+            private boolean rowGesture;
+
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView recycler,
+                                                 @NonNull MotionEvent event) {
+                switch (event.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN:
+                        downX = event.getX();
+                        downY = event.getY();
+                        rowGesture = recycler.findChildViewUnder(downX, downY) != null;
+                        if (rowGesture) recycler.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        float dx = Math.abs(event.getX() - downX);
+                        float dy = Math.abs(event.getY() - downY);
+                        if (rowGesture && dy > touchSlop && dy > dx) {
+                            rowGesture = false;
+                            recycler.getParent().requestDisallowInterceptTouchEvent(false);
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        rowGesture = false;
+                        recycler.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recycler, @NonNull RecyclerView.ViewHolder from,

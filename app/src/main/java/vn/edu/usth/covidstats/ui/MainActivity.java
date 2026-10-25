@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
         pager = findViewById(R.id.main_pager);
         pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), getResources()));
-        pager.setOffscreenPageLimit(2);
         TabLayout tabs = findViewById(R.id.main_tabs);
         tabs.setupWithViewPager(pager);
         pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -47,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
                 invalidateOptionsMenu();
             }
         });
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Restore ViewPager's saved fragments before populating the offscreen tabs.
+        // Populating during onCreate can leave duplicate Watchlist views after rotation.
+        pager.setOffscreenPageLimit(2);
     }
 
     @Override
@@ -59,24 +66,29 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem refresh = menu.findItem(R.id.action_refresh);
         if (refresh != null) {
-            refresh.setVisible(pager.getCurrentItem() == MainPagerAdapter.PAGE_GLOBAL);
+            int page = pager.getCurrentItem();
+            refresh.setVisible(page == MainPagerAdapter.PAGE_GLOBAL
+                    || page == MainPagerAdapter.PAGE_WATCHLIST);
         }
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
-public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    if (item.getItemId() == R.id.action_refresh) {
-        if (pager.getCurrentItem() == MainPagerAdapter.PAGE_GLOBAL) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_refresh) {
+            int page = pager.getCurrentItem();
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                if (fragment instanceof GlobalFragment) {
+                if (page == MainPagerAdapter.PAGE_GLOBAL && fragment instanceof GlobalFragment) {
                     ((GlobalFragment) fragment).refresh();
                     break;
                 }
+                if (page == MainPagerAdapter.PAGE_WATCHLIST && fragment instanceof WatchlistFragment) {
+                    ((WatchlistFragment) fragment).refresh();
+                    break;
+                }
             }
+            return true;
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
-    return super.onOptionsItemSelected(item);
-}
 }

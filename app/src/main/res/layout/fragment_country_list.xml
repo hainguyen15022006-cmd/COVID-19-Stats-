@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Tab Quoc gia: o tim, hai spinner loc/sap xep, danh sach. -->
+<!--
+  focusableInTouchMode tren the goc: khong co no thi EditText ben duoi la view
+  dau tien nhan focus, ban phim tu bat ngay khi mo tab va che mat danh sach.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
+
+    <!-- F12: bao dang xem du lieu cu khi mat mang, giong tab Toan cau. -->
+    <TextView
+        android:id="@+id/country_offline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:accessibilityLiveRegion="polite"
+        android:text="@string/watchlist_offline"
+        android:textColor="@color/chart_deaths"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/country_search"

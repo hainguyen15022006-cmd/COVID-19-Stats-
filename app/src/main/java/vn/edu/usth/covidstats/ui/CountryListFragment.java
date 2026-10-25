@@ -1,5 +1,6 @@
 package vn.edu.usth.covidstats.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -35,6 +37,7 @@ import vn.edu.usth.covidstats.R;
 import vn.edu.usth.covidstats.data.Callback;
 import vn.edu.usth.covidstats.data.WatchlistStore;
 import vn.edu.usth.covidstats.model.CountryStats;
+import vn.edu.usth.covidstats.util.NetworkUtil;
 
 /**
  * Tab Quoc gia.
@@ -66,6 +69,7 @@ public class CountryListFragment extends Fragment
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView listView;
     private TextView emptyView;
+    private TextView offlineView;
     private View emptyBox;
     private Button retryButton;
     /** Loi cua lan tai gan nhat; null nghia la lan tai truoc thanh cong. */
@@ -95,6 +99,7 @@ public class CountryListFragment extends Fragment
         refreshLayout = view.findViewById(R.id.country_refresh);
         listView = view.findViewById(R.id.country_list);
         emptyView = view.findViewById(R.id.country_empty);
+        offlineView = view.findViewById(R.id.country_offline);
         emptyBox = view.findViewById(R.id.country_empty_box);
         retryButton = view.findViewById(R.id.country_retry);
 
@@ -138,6 +143,22 @@ public class CountryListFragment extends Fragment
     }
 
     @Override
+    public void onPause() {
+        // ViewPager giu ca ba tab song cung luc, nen o tim van giu con tro khi
+        // nguoi dung vuot sang tab khac va ban phim di theo, che mat man hinh do.
+        // Roi tab nay thi nha con tro va dong ban phim lai.
+        if (searchInput != null && searchInput.hasFocus()) {
+            InputMethodManager keyboard = (InputMethodManager)
+                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (keyboard != null) {
+                keyboard.hideSoftInputFromWindow(searchInput.getWindowToken(), 0);
+            }
+            searchInput.clearFocus();
+        }
+        super.onPause();
+    }
+
+    @Override
     public void onDestroyView() {
         watchlistStore.removeListener(watchlistListener);
         super.onDestroyView();
@@ -157,6 +178,9 @@ public class CountryListFragment extends Fragment
                 }
                 refreshLayout.setRefreshing(false);
                 loadError = null;
+                // fromCache cung dung khi cache con moi luc co mang, nen kiem tra them mang.
+                boolean offline = fromCache && !NetworkUtil.isOnline(requireContext());
+                offlineView.setVisibility(offline ? View.VISIBLE : View.GONE);
                 allCountries.clear();
                 allCountries.addAll(data);
                 setUpContinentSpinner();
