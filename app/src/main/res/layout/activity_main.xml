@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/transparent"
-        app:title="@string/main_tab_global"
         app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineSmall"
         app:titleTextColor="@color/text_strong" />
 

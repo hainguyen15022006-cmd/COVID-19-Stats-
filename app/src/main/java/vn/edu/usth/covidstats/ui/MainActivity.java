@@ -54,10 +54,20 @@ public class MainActivity extends AppCompatActivity {
         pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                setTitle(adapter.getPageTitle(position));
+                showPageTitle(position);
                 invalidateOptionsMenu();
             }
         });
+    }
+
+    /**
+     * Sets the toolbar title to the open page. Goes through the action bar because
+     * Activity.setTitle does not replace a title the toolbar already shows.
+     */
+    private void showPageTitle(int position) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(adapter.getPageTitle(position));
+        }
     }
 
     private static void setTabIcon(TabLayout tabs, int position, int iconRes) {
@@ -74,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         // Populating during onCreate can leave duplicate Watchlist views after rotation.
         pager.setOffscreenPageLimit(2);
         // The pager restores its page after rotation, so set the title here.
-        setTitle(adapter.getPageTitle(pager.getCurrentItem()));
+        showPageTitle(pager.getCurrentItem());
     }
 
     @Override
