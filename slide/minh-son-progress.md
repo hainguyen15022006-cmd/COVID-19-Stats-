@@ -28,22 +28,23 @@ Capture both English and Vietnamese for every integrated screen:
 6. Verify date formatting follows the active locale.
 7. Run Lint and require zero `HardcodedText` and zero `MissingTranslation` findings.
 
-Current evidence possible before the remaining branches merge:
+T11 completed on the API 37 emulator with English and Vietnamese pairs:
 
-- Country list in English: `slide/evidence/t11-country-list-en.png`.
-- Country list in Vietnamese: `slide/evidence/t11-country-list-vi.png`.
-- Sort and continent options in both languages.
-- Number grouping on country rows.
+- Global: `t11-api37-global-en.png`, `t11-api37-global-vi.png`.
+- Country list: `t11-api37-country-list-en.png`, `t11-api37-country-list-vi.png`.
+- Country detail: `t11-api37-country-detail-en.png`,
+  `t11-api37-country-detail-vi.png`.
+- Watchlist: `t11-api37-watchlist-en.png`, `t11-api37-watchlist-vi.png`.
 
-Verified on the API 30 emulator:
+Verified results:
 
-- System locale order: Vietnamese (Vietnam), then English (United States).
-- Search, sort and continent-filter labels switch to Vietnamese.
-- Country rows use Vietnamese grouping, for example `111.820.082 ca` and
-  `1.219.487 tử vong`.
-- The current English and Vietnamese resource sets contain the same string keys.
-- Android Lint reports zero `HardcodedText`, zero `MissingTranslation` and zero
-  `UnusedResources` findings for the current integrated code.
+- All four integrated screens switch their user-facing UI to Vietnamese.
+- English grouping `111,820,082` changes to Vietnamese `111.820.082`.
+- Global date `Mar 9, 2023` changes to `9 thg 3, 2023`.
+- Detail date `March 9, 2023` changes to `9 tháng 3, 2023`.
+- English and Vietnamese each contain 89 matching main string keys.
+- Android Lint reports zero `HardcodedText`, zero `MissingTranslation`, zero
+  `UnusedResources` and zero `Overdraw` findings.
 
 ## T13 - overdraw evidence checklist
 
@@ -63,15 +64,34 @@ Color interpretation:
 - Green: two extra draws.
 - Pink/red: heavy overdraw and the first optimization target.
 
-Do not claim "no overdraw" without the three real before/after pairs.
+T13 completed on the API 37 emulator with GPU overdraw enabled:
 
-## What is waiting for other branches
+- Global: `t13-before-global.png`, `t13-after-global.png`.
+- Country list: `t13-before-country-list.png`, `t13-after-country-list.png`.
+- Country detail: `t13-before-country-detail.png`,
+  `t13-after-country-detail.png`.
 
-- Global tab and three-tab main screen: no remote branch is available yet.
-- Country detail/chart: committed on `origin/congthanh-country-detail-chart`, not merged to `main`.
-- Real network/cache/watchlist: committed on `origin/feat/networknew`, not merged to `main`.
-- Final localization audit must run after those branches are merged because they add new strings and layouts.
-- Final T13 images require Global and Country detail to exist on `main`.
+Optimizations applied:
+
+- Removed duplicate toolbar and tab backgrounds; the themed window remains the
+  single full-screen base layer.
+- Moved the country-row ripple from `background` to `foreground`, preserving
+  touch feedback without painting an extra opaque row background.
+- Removed the image button base background and made chart backgrounds explicit
+  `@null` in portrait and landscape layouts.
+- Removed two obsolete strings left behind after screen integration.
+
+The final captures contain no pink/red full-screen regions. Blue remains inside
+charts and interactive controls because those components legitimately draw their
+own content. Lint independently confirms zero `Overdraw` findings.
+
+## Integration status
+
+- Global, Country list, Country detail/chart and Watchlist are all integrated.
+- T11 and T13 no longer wait for another screen branch.
+- `origin/main` now includes core utilities, offline/chart fixes, storage and the
+  complete T01-T14 evidence set. The resources branch is rebased by merge on
+  top of that integrated state.
 
 ## 90-second speaking notes
 

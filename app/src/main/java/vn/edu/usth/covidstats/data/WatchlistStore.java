@@ -1,5 +1,6 @@
 package vn.edu.usth.covidstats.data;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -59,6 +60,7 @@ public final class WatchlistStore {
         submit(iso2, null, true, callback);
     }
 
+    @SuppressLint("ApplySharedPref") // commit() is intentional and runs on this worker thread.
     private void submit(String input, Boolean starred, boolean toggle, Callback<Set<String>> callback) {
         Objects.requireNonNull(callback, "callback");
         worker.execute(() -> {

@@ -16,6 +16,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // The watchlist evidence flow deliberately spans several separate
+        // instrumentation invocations and toggles device networking. Running
+        // it without a storagePhase argument is reported as four failures by
+        // AndroidJUnitRunner, so keep it out of the ordinary connected suite.
+        testInstrumentationRunnerArguments["notClass"] =
+            "vn.edu.usth.covidstats.WatchlistIntegrationTest"
     }
 
     buildTypes {

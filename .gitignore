@@ -11,6 +11,7 @@ out/
 release/
 build/
 .gradle/
+/gradle/gradle-daemon-jvm.properties
 .kotlin/
 .cxx/
 

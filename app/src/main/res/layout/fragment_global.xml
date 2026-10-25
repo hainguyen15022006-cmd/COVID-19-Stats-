@@ -127,7 +127,8 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/global_chart"
                 android:layout_width="match_parent"
-                android:layout_height="260dp" />
+                android:layout_height="260dp"
+                android:background="@null" />
 
             <TextView
                 android:id="@+id/global_empty"
