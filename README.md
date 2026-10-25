@@ -28,7 +28,9 @@ F01–F08, F11 and F12 are required. F09, F10 and F13 are added only once the re
 
 ## Screenshots
 
-_To be added before submission._
+| Global | Search | Country detail | Watchlist | Offline |
+|---|---|---|---|---|
+| ![Global tab](docs/screenshots/global.png) | ![Search "vn"](docs/screenshots/search.png) | ![Vietnam detail with chart](docs/screenshots/detail.png) | ![Watchlist](docs/screenshots/watchlist.png) | ![Offline notice](docs/screenshots/offline.png) |
 
 ---
 
