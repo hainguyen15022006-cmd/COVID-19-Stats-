@@ -20,7 +20,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -106,8 +105,6 @@ public class CountryListFragment extends Fragment
         CovidApp app = (CovidApp) requireActivity().getApplication();
         adapter = new CountryAdapter(app.getImageLoader(), this);
         listView.setLayoutManager(new LinearLayoutManager(getContext()));
-        listView.addItemDecoration(new DividerItemDecoration(requireContext(),
-                DividerItemDecoration.VERTICAL));
         listView.setAdapter(adapter);
 
         adapter.setOnCountryLongClickListener(this::toggleWatchlist);
