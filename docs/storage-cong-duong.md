@@ -1,22 +1,34 @@
 # Bàn giao phần Công Dương — feat/storage
 
-## Trạng thái trung thực
+## Trạng thái ngày 25/10/2026
 
-Viết dựa trên `main` commit `d40ae7a` của repo `hainguyen15022006-cmd/COVID-19-Stats-`.
-Đã triển khai 5 file được phân công, thêm chuỗi Anh/Việt, 9 storage tests và 1 UI test.
-Đã build debug, build APK kiểm thử và chạy lint: 0 lỗi, 21 cảnh báo (có cả code sẵn của repo).
-Đã chạy 9 StorageContractTest đạt và 1 WatchlistPreviewTest đạt trên Android 17/API 37.
-Kiểm thử UI xác nhận rỗng, thêm VN/US, tạo lại Activity, vuốt bỏ VN và refresh giữ US.
-Người dùng đã xác nhận thử tay thành công: thêm VN/US, vuốt bỏ VN, Refresh vẫn giữ US;
-force stop/mở lại vẫn giữ US; ngắt mạng/Refresh vẫn có US và nhãn offline.
-Các xác nhận thử tay hiện nằm trong hội thoại, chưa có ảnh/log đính kèm cho nhóm.
-Ngày 24/10/2026: đã ghép `origin/feat/networknew` tại `55ece8d` vào nhánh local feat/storage.
-Repository thật đã dùng CacheManager. Kiểm chứng tải API thật, tắt tiến trình, đọc offline
-được global và 231 quốc gia trong 432 ms; Watchlist hiển thị số liệu và nhãn offline.
-Sau khi bật mạng và Refresh, request thật thành công và nhãn offline biến mất.
-Ảnh/log nằm trong `docs/evidence/f12-2026-10-24/`. Đây là bằng chứng tầng dữ liệu và
-Watchlist chạy trong host debug; màn chính ba tab/chi tiết của nhóm vẫn chờ tích hợp.
-Người dùng sẽ tự push GitHub.
+Phần Công Dương (F11/F12) đã tích hợp và kiểm chứng trên màn chính ba tab thật,
+với màn Chi tiết và NetworkRepository của nhóm. Nhánh local `feat/storage` đã có
+`main` tại `205edff` và bản Refresh của Sỹ Chúc (`b2d9226`, merge `c8649e3`).
+
+Đã sửa hai lỗi chỉ lộ ra sau khi ghép:
+
+- Trong `WatchlistFragment`, giữ cử chỉ ngang trên dòng nước cho vuốt bỏ theo dõi;
+  nhả cử chỉ dọc cho kéo xuống làm mới. Trước đó ViewPager chặn vuốt xóa.
+- Trong `ui/MainActivity`, chuyển `setOffscreenPageLimit(2)` sang `onPostCreate`.
+  Pager phải khôi phục Fragment trước khi tạo tab ngoài màn hình, tránh view Theo dõi
+  trùng sau khi tạo lại Activity. Đây là thay đổi tích hợp ngoài 5 file sở hữu ban đầu.
+
+Build debug + APK test đạt; lint **0 lỗi, 14 cảnh báo** của toàn app.
+**37 lượt kiểm thử đạt** trên Android 17/API 37: 9 storage, 18 repository,
+4 file-cache và 6 lượt tích hợp/đọc cache/khôi phục. Có bằng chứng:
+
+- Gắn sao VN/US qua nút thật ở Chi tiết; mở tab Theo dõi có đủ hai nước.
+- Force-stop, tắt Wi-Fi/data, mở ở tiến trình mới: sao và số liệu còn, có nhãn offline.
+- Vuốt VN: dòng biến mất và store chỉ còn US; Refresh vẫn giữ US.
+- Tạo lại Activity giữ tab/dữ liệu; Refresh trên toolbar và kéo xuống hoạt động.
+- Bật mạng lại: Refresh thành công, nhãn offline biến mất; tab tiếng Việt hiển thị đúng.
+- Đọc global và 231 nước từ file trong **214 ms**; tab offline hiện hai dòng sau **1830 ms**
+  trong lần đo này. Đây là số đo emulator một lần, không phải bảo đảm trên mọi thiết bị.
+
+Ảnh, log, giới hạn và lệnh chạy lại: [bằng chứng 25/10](evidence/storage-2026-10-25/README.md).
+Mạng, ngôn ngữ và danh sách sao ban đầu đã khôi phục. Người dùng tự push GitHub;
+nhóm vẫn cần review/merge và kiểm thử chung theo lịch M3/M5.
 
 ## Màn thử debug
 
@@ -37,10 +49,8 @@ Chạy riêng bài kiểm thử UI (đã tránh API Espresso cũ không tương 
 .\gradlew.bat :app:connectedDebugAndroidTest --no-configuration-cache "-Pandroid.testInstrumentationRunnerArguments.class=vn.edu.usth.covidstats.WatchlistPreviewTest"
 ```
 
-Nhánh local hiện có Repository mạng của Tấn Thành. MainActivity vẫn chỉ mở CountryListFragment;
-Watchlist được kiểm tra trong host debug riêng. Phần Công Thành và Sỹ Chúc chưa được ghép
-vào nhánh này theo yêu cầu người dùng. Các hướng dẫn CacheManager dưới đây mô tả hợp đồng
-đã được NetworkRepository sử dụng; hướng dẫn tab/nút sao vẫn dành cho bước tích hợp sau.
+Host debug được giữ để thử riêng storage. Bằng chứng mới ngày 25/10 dùng MainActivity
+và CountryDetailActivity thật, không phụ thuộc các nút thêm VN/US của host debug.
 
 ## API mới cho nhóm dùng
 
@@ -105,9 +115,8 @@ ViewModel giữ dữ liệu/request qua rotation, không giữ Activity hoặc V
 RecyclerView dùng lại CountryAdapter của Hải Anh. Vuốt trái/phải bỏ sao và cập nhật danh sách
 sau commit; ghi lỗi sẽ khôi phục dòng và có nút Thử lại.
 
-Khi click, Fragment mở `vn.edu.usth.covidstats.ui.CountryDetailActivity` bằng extra
-`country_iso2`. Công Thành/Tấn Thành cần có đúng Activity và khai báo Manifest. Nếu chưa
-có Activity, hiện thông báo thay vì crash. Không thêm Activity giả trong nhánh storage.
+Khi click, Fragment mở `CountryDetailActivity` thật bằng extra `country_iso2`.
+Activity và Manifest đã được ghép; nút sao dùng chung singleton WatchlistStore.
 
 Nhãn offline xuất hiện khi có dòng dữ liệu và NetworkUtil không thấy Internet đã được
 Android xác thực. Kiểm tra lại khi render/Refresh/quay lại màn hình. Dữ liệu mẫu cũng có
@@ -135,16 +144,29 @@ restart hay UI; kiểm tra thủ công bên dưới vẫn bắt buộc.
 
 - [x] Build, lint và StorageContractTest chạy thành công; báo cáo trong app/build/reports.
 - [x] Chưa có sao: tab Theo dõi có thông báo rỗng, không vòng chờ vô hạn (UI test).
-- [ ] Gắn sao VN ở chi tiết, Back sang tab Theo dõi: có Vietnam.
+- [x] Gắn sao VN ở Chi tiết rồi mở tab Theo dõi thật: có Vietnam.
 - [x] Trong màn thử debug: gắn US; bỏ VN không mất US; vuốt bỏ dòng cập nhật ngay.
-- [ ] Force stop rồi mở lại: sao còn đúng; chụp ảnh trước/sau (T10).
-- [ ] Xoay màn hình lúc đang tải và sau khi có dữ liệu: không crash, không request lặp vì rotation.
+- [x] Force stop rồi mở lại: sao còn đúng; có ảnh/log trước/sau (T10).
+- [x] Tạo lại Activity sau khi có dữ liệu: giữ tab, hai dòng và Refresh hoạt động.
+- [ ] Kiểm thử xoay vật lý lúc request đang tải thuộc lượt T09 chung của nhóm.
 - [x] Repository thật: tải thành công, force stop, tắt Wi-Fi/data, đọc lại ở tiến trình mới;
       dữ liệu file và nhãn offline có trên Watchlist debug (24/10, ảnh + log trong evidence).
-- [ ] Cache cũ hơn 10 phút vẫn fallback offline; cache mới online không gọi API nếu không Refresh.
-- [ ] Mất mạng/chưa cache: lỗi dễ hiểu + Thử lại; cache hỏng không crash.
+- [x] Cache cũ hơn 10 phút vẫn fallback offline; cache mới online dùng lại trừ Refresh (tests repository/file-cache).
+- [x] Cache hỏng hoặc chưa có cache trả lỗi ở tầng dữ liệu, không crash (tests repository/file-cache).
+- [ ] T02 giao diện mất mạng/chưa cache của toàn app vẫn do Tấn Thành kiểm thử.
 - [x] Có mạng trở lại, Refresh: log NETWORK countries và nhãn offline biến mất (24/10).
-- [ ] Đổi Anh/Việt; chạy StrictMode để xác nhận không disk I/O trên main.
+- [x] Tab Theo dõi đổi Anh/Việt; kéo xuống thực sự gửi request countries.
+- [x] StorageContractTest từ chối file I/O trên main; M3RepositoryTest kiểm tra main-thread I/O đạt.
+
+Chạy lại bộ bằng chứng trên emulator đã mở (cần Internet cho các pha online):
+
+```powershell
+.\docs\verify-storage.ps1
+```
+
+Script không gỡ app/xóa app data; sao thử VN/US có bản sao lưu và được khôi phục trong
+`finally`. Các pha `WatchlistIntegrationTest` chỉ chạy khi chỉ rõ `storagePhase`,
+để lần chạy toàn bộ test thông thường không phụ thuộc thao tác tắt/bật mạng.
 
 ## Ba ý để giải thích
 
@@ -165,17 +187,16 @@ onResponse ở main nên parse ở parseNetworkResponse/worker; Repository chọ
 mạng. Giải thích bằng log request thật sau tích hợp. Không nói nguồn cập nhật hàng ngày;
 ngày dữ liệu lấy từ timeline, không lấy updated.
 
-## Nội dung PR gợi ý (chỉ gửi sau khi chạy thử)
+## Nội dung PR gợi ý (đã có bằng chứng, người dùng tự gửi)
 
-Tiêu đề: `feat(storage): add file cache and persistent watchlist`
+Tiêu đề: `fix(storage): finish watchlist gestures and integrated offline verification`
 
-Mã chức năng: F11, F12; hỗ trợ vuốt bỏ theo dõi thuộc F13/T10.
-Thêm cache JSON atomic với TTL 10 phút, store ISO2 bất đồng bộ, kiểm tra Internet và
-WatchlistFragment có refresh/rỗng/lỗi/offline. Thêm strings Anh/Việt và StorageContractTest.
-Các file ngoài 5 file sản phẩm: strings theo ngoại lệ tài liệu, test riêng và ghi chú bàn giao này.
-Không đổi CovidRepository/model, Manifest, Gradle hay màn của thành viên khác.
+Sau khi ghép vào pager, vuốt bỏ theo dõi bị nhận thành vuốt tab; tạo lại Activity
+có thể để lại view Watchlist trùng. Sửa phân phối cử chỉ trong WatchlistFragment
+và trì hoãn tạo tab ngoài màn hình đến sau khi MainActivity khôi phục state.
 
-Đã chạy thử: **điền kết quả thật và ảnh/log trước khi gửi**.
-Repository mạng đã ghép và kiểm chứng F12 trong host debug. Còn phụ thuộc tab/pager
-(Sỹ Chúc) và nút sao/chi tiết (Công Thành) để kiểm tra luồng app chung.
+Đã build/lint (0 lỗi/14 cảnh báo), chạy 37 lượt kiểm thử gồm T03/T10 trên tab thật,
+force-stop/offline, vuốt xóa, toolbar/pull Refresh và tiếng Việt. Bằng chứng ở
+`docs/evidence/storage-2026-10-25/`; script chạy lại `docs/verify-storage.ps1`.
+Thay đổi `MainActivity` là sửa tích hợp với phần của Sỹ Chúc; cần người sở hữu rà lại.
 Người review theo tài liệu: Tấn Thành; nhóm trưởng phối hợp duyệt.

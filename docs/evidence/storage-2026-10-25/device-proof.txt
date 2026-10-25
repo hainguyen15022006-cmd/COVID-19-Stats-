@@ -1,0 +1,310 @@
+--------- beginning of main
+10-24 19:45:52.319  3881  3904 D M3Data  : REQUEST all
+10-24 19:45:52.320  3881  3903 D M3Data  : PARSE all thread=Thread-8
+10-24 19:45:52.324  3881  3904 D M3Data  : NETWORK global
+10-24 19:45:52.341  3881  3907 D M3Data  : REQUEST all
+10-24 19:45:52.341  3881  3906 D M3Data  : PARSE all thread=Thread-10
+10-24 19:45:52.342  3881  3907 D M3Data  : NETWORK global
+10-24 19:45:52.343  3881  3907 D M3Data  : CACHE global
+10-24 19:45:52.345  3881  3907 D M3Data  : REQUEST all
+10-24 19:45:52.345  3881  3906 D M3Data  : PARSE all thread=Thread-10
+10-24 19:45:52.346  3881  3907 D M3Data  : NETWORK global
+10-24 19:45:52.359  3881  3910 D M3Data  : REQUEST all
+10-24 19:45:52.359  3881  3909 D M3Data  : PARSE all thread=Thread-12
+10-24 19:45:52.361  3881  3910 D M3Data  : NETWORK global
+10-24 19:45:52.374  3881  3913 D M3Data  : REQUEST all
+10-24 19:45:52.375  3881  3913 D M3Data  : ERROR global ServerError
+10-24 19:45:52.387  3881  3916 D M3Data  : REQUEST all
+10-24 19:45:52.388  3881  3916 D M3Data  : ERROR global TimeoutError
+10-24 19:45:52.400  3881  3919 D M3Data  : REQUEST all
+10-24 19:45:52.401  3881  3918 D M3Data  : PARSE all thread=Thread-18
+10-24 19:45:52.402  3881  3919 W M3Data  : CACHE_WRITE_FAILED /all
+10-24 19:45:52.402  3881  3919 D M3Data  : NETWORK global
+10-24 19:45:52.416  3881  3922 D M3Data  : REQUEST all
+10-24 19:45:52.417  3881  3921 D M3Data  : PARSE all thread=Thread-20
+10-24 19:45:52.418  3881  3922 D M3Data  : ERROR global ParseError
+10-24 19:45:52.432  3881  3925 D M3Data  : REQUEST historical/VN?lastdays=all
+10-24 19:45:52.432  3881  3924 D M3Data  : PARSE historical/VN?lastdays=all thread=Thread-22
+10-24 19:45:52.735  3881  3925 D M3Data  : NETWORK history_VN_30
+10-24 19:45:52.799  3881  3925 D M3Data  : CACHE history_VN_90
+10-24 19:45:52.850  3881  3925 D M3Data  : CACHE history_VN_365
+10-24 19:45:52.906  3881  3925 D M3Data  : CACHE history_VN_-1
+10-24 19:45:52.917  3881  3928 D M3Data  : REQUEST all
+10-24 19:45:52.917  3881  3927 D M3Data  : PARSE all thread=Thread-24
+10-24 19:45:52.917  3881  3928 D M3Data  : NETWORK global
+10-24 19:45:52.918  3881  3929 D M3Data  : CACHE global
+10-24 19:45:52.928  3881  3932 D M3Data  : REQUEST countries?sort=cases
+10-24 19:45:52.928  3881  3931 D M3Data  : PARSE countries?sort=cases thread=Thread-26
+10-24 19:45:52.929  3881  3932 D M3Data  : NETWORK countries
+10-24 19:45:52.937  3881  3935 W M3Data  : CACHE_INVALID /all
+10-24 19:45:52.937  3881  3935 D M3Data  : REQUEST all
+10-24 19:45:52.937  3881  3934 D M3Data  : PARSE all thread=Thread-28
+10-24 19:45:52.938  3881  3935 D M3Data  : NETWORK global
+10-24 19:45:52.946  3881  3938 D M3Data  : REQUEST all
+10-24 19:45:52.947  3881  3938 D M3Data  : ERROR global NoConnectionError
+10-24 19:45:52.958  3881  3941 D M3Data  : REQUEST all
+10-24 19:45:52.958  3881  3940 D M3Data  : PARSE all thread=Thread-32
+10-24 19:45:52.958  3881  3941 D M3Data  : NETWORK global
+10-24 19:45:52.959  3881  3941 D M3Data  : REQUEST all
+10-24 19:45:52.959  3881  3941 D M3Data  : CACHE global
+10-24 19:45:52.978  3881  3946 D M3Data  : REQUEST all
+10-24 19:45:52.979  3881  3945 D M3Data  : PARSE all thread=Thread-36
+10-24 19:45:52.979  3881  3946 D M3Data  : NETWORK global
+10-24 19:45:52.980  3881  3947 D M3Data  : CACHE global
+10-24 19:45:52.991  3881  3950 D M3Data  : REQUEST all
+10-24 19:45:52.991  3881  3949 D M3Data  : PARSE all thread=Thread-38
+10-24 19:45:52.992  3881  3950 D M3Data  : NETWORK global
+10-24 19:45:52.992  3881  3950 D M3Data  : REQUEST countries?sort=cases
+10-24 19:45:52.992  3881  3949 D M3Data  : PARSE countries?sort=cases thread=Thread-38
+10-24 19:45:53.002  3881  3950 D M3Data  : NETWORK countries
+10-24 19:45:53.002  3881  3950 D M3Data  : REQUEST countries/VN
+10-24 19:45:53.003  3881  3949 D M3Data  : PARSE countries/VN thread=Thread-38
+10-24 19:45:53.003  3881  3950 D M3Data  : NETWORK country_VN
+10-24 19:45:53.004  3881  3950 D M3Data  : REQUEST historical/all?lastdays=all
+10-24 19:45:53.004  3881  3949 D M3Data  : PARSE historical/all?lastdays=all thread=Thread-38
+10-24 19:45:53.066  3881  3950 D M3Data  : NETWORK history_all_-1
+10-24 19:45:53.066  3881  3950 D M3Data  : REQUEST historical/VN?lastdays=all
+10-24 19:45:53.067  3881  3949 D M3Data  : PARSE historical/VN?lastdays=all thread=Thread-38
+10-24 19:45:53.120  3881  3950 D M3Data  : NETWORK history_VN_-1
+10-24 19:45:53.132  3881  3953 D M3Data  : REQUEST all
+10-24 19:45:53.132  3881  3952 D M3Data  : PARSE all thread=Thread-40
+10-24 19:45:53.133  3881  3953 D M3Data  : NETWORK global
+10-24 19:45:53.133  3881  3953 D M3Data  : CACHE global
+10-24 19:45:53.133  3881  3953 D M3Data  : REQUEST all
+10-24 19:45:53.134  3881  3952 D M3Data  : PARSE all thread=Thread-40
+10-24 19:45:53.134  3881  3953 D M3Data  : NETWORK global
+10-24 19:45:53.144  3881  3956 D M3Data  : REQUEST all
+10-24 19:45:53.144  3881  3955 D M3Data  : PARSE all thread=Thread-42
+10-24 19:45:53.145  3881  3956 D M3Data  : NETWORK global
+10-24 19:45:53.145  3881  3956 D M3Data  : REQUEST all
+10-24 19:45:53.146  3881  3956 D M3Data  : CACHE global
+10-24 19:45:53.867  3971  3993 D M3Data  : REQUEST all
+10-24 19:45:53.868  3971  3992 D M3Data  : PARSE all thread=Thread-8
+10-24 19:45:53.874  3971  3993 D M3Data  : NETWORK global
+10-24 19:45:53.880  3971  3996 D M3Data  : CACHE global
+10-24 19:45:53.896  3971  3999 W M3Data  : CACHE_INVALID /all
+10-24 19:45:53.896  3971  3999 D M3Data  : REQUEST all
+10-24 19:45:53.896  3971  3998 D M3Data  : PARSE all thread=Thread-12
+10-24 19:45:53.902  3971  3999 D M3Data  : NETWORK global
+10-24 19:45:54.614  4014  4034 D M3Data  : REQUEST all
+10-24 19:45:55.842  4014  4029 D M3Data  : PARSE all thread=Thread-3
+10-24 19:45:55.852  4014  4034 D M3Data  : NETWORK global
+10-24 19:45:55.855  4014  4034 D M3Data  : REQUEST countries?sort=cases
+10-24 19:45:56.761  4014  4030 D M3Data  : PARSE countries?sort=cases thread=Thread-4
+10-24 19:45:56.793  4014  4034 D M3Data  : NETWORK countries
+10-24 19:45:56.794  4014  4027 I M3CacheProof: phase=seed pid=4014 elapsedMs=2187 countries=231
+10-24 19:46:23.326  4103  4123 D M3Data  : CACHE global
+10-24 19:46:23.748  4103  4123 D M3Data  : CACHE countries
+10-24 19:46:23.749  4103  4116 I M3CacheProof: phase=read pid=4103 elapsedMs=432 countries=231
+10-24 19:46:25.769  4131  4161 D M3Data  : CACHE countries
+10-24 19:47:05.951  4131  4161 D M3Data  : REQUEST countries?sort=cases
+10-24 19:47:07.685  4131  4151 D M3Data  : PARSE countries?sort=cases thread=Thread-5
+10-24 19:47:07.725  4131  4161 D M3Data  : NETWORK countries
+10-24 19:52:02.037  4594  4787 D M3Data  : CACHE countries
+10-24 19:52:32.695  4594  4787 D M3Data  : CACHE countries
+10-24 19:53:26.064  4594  4787 D M3Data  : REQUEST countries?sort=cases
+10-24 19:53:26.962  4594  4653 D M3Data  : PARSE countries?sort=cases thread=Thread-6
+10-24 19:53:27.006  4594  4787 D M3Data  : NETWORK countries
+10-24 19:53:34.100  4594  4787 D M3Data  : REQUEST countries?sort=cases
+10-24 19:53:35.356  4594  4650 D M3Data  : PARSE countries?sort=cases thread=Thread-3
+10-24 19:53:35.375  4594  4787 D M3Data  : NETWORK countries
+10-24 19:53:40.812  4594  4787 D M3Data  : REQUEST countries?sort=cases
+10-24 19:53:41.724  4594  4652 D M3Data  : PARSE countries?sort=cases thread=Thread-5
+10-24 19:53:41.745  4594  4787 D M3Data  : NETWORK countries
+10-24 19:55:08.755  4984  5012 D M3Data  : CACHE countries
+10-24 19:55:20.143  4984  5012 D M3Data  : CACHE countries
+10-24 19:55:39.766  4984  5012 D M3Data  : REQUEST countries?sort=cases
+10-24 19:55:42.846  4984  5000 D M3Data  : PARSE countries?sort=cases thread=Thread-3
+10-24 19:55:42.889  4984  5012 D M3Data  : NETWORK countries
+10-24 20:21:39.971  6477  6499 D M3Data  : REQUEST countries?sort=cases
+10-24 20:21:42.182  6477  6492 D M3Data  : PARSE countries?sort=cases thread=Thread-3
+10-24 20:21:42.225  6477  6499 D M3Data  : NETWORK countries
+10-25 12:30:44.246  7149  7209 D M3Data  : REQUEST all
+10-25 12:30:44.676  7149  7209 D M3Data  : REQUEST countries?sort=cases
+10-25 12:30:45.698  7149  7200 D M3Data  : PARSE all thread=Thread-6
+10-25 12:30:45.714  7149  7209 D M3Data  : NETWORK global
+10-25 12:30:45.727  7149  7209 D M3Data  : REQUEST historical/all?lastdays=all
+10-25 12:30:46.892  7149  7197 D M3Data  : PARSE historical/all?lastdays=all thread=Thread-3
+10-25 12:30:46.975  7149  7209 D M3Data  : NETWORK history_all_-1
+10-25 12:30:47.098  7149  7198 D M3Data  : PARSE countries?sort=cases thread=Thread-4
+10-25 12:30:47.209  7149  7209 D M3Data  : NETWORK countries
+10-25 12:31:24.697  7149  7209 D M3Data  : REQUEST countries/VN
+10-25 12:31:24.698  7149  7209 D M3Data  : REQUEST historical/VN?lastdays=all
+10-25 12:31:25.632  7149  7199 D M3Data  : PARSE countries/VN thread=Thread-5
+10-25 12:31:25.638  7149  7209 D M3Data  : NETWORK country_VN
+10-25 12:31:26.658  7149  7198 D M3Data  : PARSE historical/VN?lastdays=all thread=Thread-4
+10-25 12:31:26.742  7149  7209 D M3Data  : NETWORK history_VN_-1
+10-25 12:32:33.720  7384  7410 D M3Data  : CACHE global
+10-25 12:32:34.039  7384  7410 D M3Data  : CACHE countries
+10-25 12:32:34.583  7384  7410 D M3Data  : CACHE history_all_-1
+10-25 12:32:34.735  7384  7410 D M3Data  : CACHE countries
+10-25 12:33:20.292  7384  7410 D M3Data  : CACHE country_VN
+10-25 12:33:20.415  7384  7410 D M3Data  : CACHE history_VN_-1
+10-25 12:34:21.355  7384  7410 D M3Data  : CACHE country_VN
+10-25 12:34:21.477  7384  7410 D M3Data  : CACHE history_VN_-1
+10-25 12:34:30.807  7384  7410 D M3Data  : REQUEST all
+10-25 12:34:31.082  7384  7400 D M3Data  : PARSE all thread=Thread-3
+10-25 12:34:31.091  7384  7410 D M3Data  : NETWORK global
+10-25 12:34:31.186  7384  7410 D M3Data  : CACHE history_all_-1
+10-25 12:34:41.231  7681  7706 D M3Data  : CACHE global
+10-25 12:34:41.658  7681  7706 D M3Data  : CACHE countries
+10-25 12:34:42.152  7681  7706 D M3Data  : CACHE history_all_-1
+10-25 12:34:42.293  7681  7706 D M3Data  : CACHE countries
+10-25 12:35:18.098  7681  7706 D M3Data  : CACHE country_VN
+10-25 12:35:18.201  7681  7706 D M3Data  : CACHE history_VN_-1
+10-25 12:35:20.772  7681  7706 D M3Data  : REQUEST countries?sort=cases
+10-25 12:35:22.485  7681  7696 D M3Data  : PARSE countries?sort=cases thread=Thread-3
+10-25 12:35:22.526  7681  7706 D M3Data  : NETWORK countries
+10-25 15:14:37.169  9104  9134 D M3Data  : REQUEST all
+10-25 15:14:37.170  9104  9133 D M3Data  : PARSE all thread=Thread-8
+10-25 15:14:37.175  9104  9134 D M3Data  : NETWORK global
+10-25 15:14:37.250  9104  9137 D M3Data  : REQUEST all
+10-25 15:14:37.250  9104  9136 D M3Data  : PARSE all thread=Thread-10
+10-25 15:14:37.251  9104  9137 D M3Data  : NETWORK global
+10-25 15:14:37.253  9104  9137 D M3Data  : CACHE global
+10-25 15:14:37.255  9104  9137 D M3Data  : REQUEST all
+10-25 15:14:37.255  9104  9136 D M3Data  : PARSE all thread=Thread-10
+10-25 15:14:37.257  9104  9137 D M3Data  : NETWORK global
+10-25 15:14:37.277  9104  9140 D M3Data  : REQUEST all
+10-25 15:14:37.278  9104  9139 D M3Data  : PARSE all thread=Thread-12
+10-25 15:14:37.278  9104  9140 D M3Data  : NETWORK global
+10-25 15:14:37.302  9104  9143 D M3Data  : REQUEST all
+10-25 15:14:37.304  9104  9143 D M3Data  : ERROR global ServerError
+10-25 15:14:37.330  9104  9146 D M3Data  : REQUEST all
+10-25 15:14:37.331  9104  9146 D M3Data  : ERROR global TimeoutError
+10-25 15:14:37.358  9104  9149 D M3Data  : REQUEST all
+10-25 15:14:37.358  9104  9148 D M3Data  : PARSE all thread=Thread-18
+10-25 15:14:37.359  9104  9149 W M3Data  : CACHE_WRITE_FAILED /all
+10-25 15:14:37.360  9104  9149 D M3Data  : NETWORK global
+10-25 15:14:37.386  9104  9152 D M3Data  : REQUEST all
+10-25 15:14:37.386  9104  9151 D M3Data  : PARSE all thread=Thread-20
+10-25 15:14:37.387  9104  9152 D M3Data  : ERROR global ParseError
+10-25 15:14:37.417  9104  9155 D M3Data  : REQUEST historical/VN?lastdays=all
+10-25 15:14:37.417  9104  9154 D M3Data  : PARSE historical/VN?lastdays=all thread=Thread-22
+10-25 15:14:37.624  9104  9155 D M3Data  : NETWORK history_VN_30
+10-25 15:14:37.786  9104  9155 D M3Data  : CACHE history_VN_90
+10-25 15:14:37.925  9104  9155 D M3Data  : CACHE history_VN_365
+10-25 15:14:38.123  9104  9155 D M3Data  : CACHE history_VN_-1
+10-25 15:14:38.203  9104  9158 D M3Data  : REQUEST all
+10-25 15:14:38.203  9104  9157 D M3Data  : PARSE all thread=Thread-24
+10-25 15:14:38.205  9104  9158 D M3Data  : NETWORK global
+10-25 15:14:38.209  9104  9159 D M3Data  : CACHE global
+10-25 15:14:38.392  9104  9162 D M3Data  : REQUEST countries?sort=cases
+10-25 15:14:38.393  9104  9161 D M3Data  : PARSE countries?sort=cases thread=Thread-26
+10-25 15:14:38.395  9104  9162 D M3Data  : NETWORK countries
+10-25 15:14:38.427  9104  9165 W M3Data  : CACHE_INVALID /all
+10-25 15:14:38.428  9104  9165 D M3Data  : REQUEST all
+10-25 15:14:38.428  9104  9164 D M3Data  : PARSE all thread=Thread-28
+10-25 15:14:38.429  9104  9165 D M3Data  : NETWORK global
+10-25 15:14:38.454  9104  9168 D M3Data  : REQUEST all
+10-25 15:14:38.456  9104  9168 D M3Data  : ERROR global NoConnectionError
+10-25 15:14:38.479  9104  9171 D M3Data  : REQUEST all
+10-25 15:14:38.480  9104  9170 D M3Data  : PARSE all thread=Thread-32
+10-25 15:14:38.481  9104  9171 D M3Data  : NETWORK global
+10-25 15:14:38.482  9104  9171 D M3Data  : REQUEST all
+10-25 15:14:38.483  9104  9171 D M3Data  : CACHE global
+10-25 15:14:38.538  9104  9176 D M3Data  : REQUEST all
+10-25 15:14:38.540  9104  9175 D M3Data  : PARSE all thread=Thread-36
+10-25 15:14:38.541  9104  9176 D M3Data  : NETWORK global
+10-25 15:14:38.546  9104  9177 D M3Data  : CACHE global
+10-25 15:14:38.572  9104  9180 D M3Data  : REQUEST all
+10-25 15:14:38.572  9104  9179 D M3Data  : PARSE all thread=Thread-38
+10-25 15:14:38.573  9104  9180 D M3Data  : NETWORK global
+10-25 15:14:38.573  9104  9180 D M3Data  : REQUEST countries?sort=cases
+10-25 15:14:38.576  9104  9179 D M3Data  : PARSE countries?sort=cases thread=Thread-38
+10-25 15:14:38.609  9104  9180 D M3Data  : NETWORK countries
+10-25 15:14:38.610  9104  9180 D M3Data  : REQUEST countries/VN
+10-25 15:14:38.610  9104  9179 D M3Data  : PARSE countries/VN thread=Thread-38
+10-25 15:14:38.611  9104  9180 D M3Data  : NETWORK country_VN
+10-25 15:14:38.611  9104  9180 D M3Data  : REQUEST historical/all?lastdays=all
+10-25 15:14:38.612  9104  9179 D M3Data  : PARSE historical/all?lastdays=all thread=Thread-38
+10-25 15:14:38.793  9104  9180 D M3Data  : NETWORK history_all_-1
+10-25 15:14:38.794  9104  9180 D M3Data  : REQUEST historical/VN?lastdays=all
+10-25 15:14:38.794  9104  9179 D M3Data  : PARSE historical/VN?lastdays=all thread=Thread-38
+10-25 15:14:38.917  9104  9180 D M3Data  : NETWORK history_VN_-1
+10-25 15:14:38.932  9104  9183 D M3Data  : REQUEST all
+10-25 15:14:38.932  9104  9182 D M3Data  : PARSE all thread=Thread-40
+10-25 15:14:38.933  9104  9183 D M3Data  : NETWORK global
+10-25 15:14:38.933  9104  9183 D M3Data  : CACHE global
+10-25 15:14:38.936  9104  9183 D M3Data  : REQUEST all
+10-25 15:14:38.936  9104  9182 D M3Data  : PARSE all thread=Thread-40
+10-25 15:14:38.937  9104  9183 D M3Data  : NETWORK global
+10-25 15:14:38.964  9104  9186 D M3Data  : REQUEST all
+10-25 15:14:38.964  9104  9185 D M3Data  : PARSE all thread=Thread-42
+10-25 15:14:38.968  9104  9186 D M3Data  : NETWORK global
+10-25 15:14:38.969  9104  9186 D M3Data  : REQUEST all
+10-25 15:14:38.971  9104  9186 D M3Data  : CACHE global
+10-25 15:14:40.906  9201  9223 D M3Data  : CACHE global
+10-25 15:14:40.939  9201  9226 D M3Data  : REQUEST all
+10-25 15:14:40.940  9201  9225 D M3Data  : PARSE all thread=Thread-10
+10-25 15:14:40.944  9201  9226 W M3Data  : CACHE_WRITE_FAILED /all
+10-25 15:14:40.945  9201  9226 D M3Data  : NETWORK global
+10-25 15:14:40.980  9201  9229 D M3Data  : CACHE history_all_2
+10-25 15:14:40.988  9201  9230 D M3Data  : CACHE history_all_-1
+10-25 15:14:41.028  9201  9233 W M3Data  : CACHE_INVALID /all
+10-25 15:14:41.029  9201  9233 D M3Data  : REQUEST all
+10-25 15:14:41.032  9201  9233 D M3Data  : ERROR global NoConnectionError
+10-25 15:14:44.099  9249  9278 D M3Data  : REQUEST all
+10-25 15:14:44.678  9249  9278 D M3Data  : REQUEST countries?sort=cases
+10-25 15:14:45.887  9249  9265 D M3Data  : PARSE all thread=Thread-4
+10-25 15:14:45.910  9249  9278 D M3Data  : NETWORK global
+10-25 15:14:46.909  9249  9278 D M3Data  : REQUEST historical/all?lastdays=all
+10-25 15:14:46.946  9249  9264 D M3Data  : PARSE countries?sort=cases thread=Thread-3
+10-25 15:14:47.242  9249  9278 D M3Data  : NETWORK countries
+10-25 15:14:47.410  9249  9278 D M3Data  : REQUEST countries/VN
+10-25 15:14:47.762  9249  9266 D M3Data  : PARSE countries/VN thread=Thread-5
+10-25 15:14:48.073  9249  9267 D M3Data  : PARSE historical/all?lastdays=all thread=Thread-6
+10-25 15:14:48.640  9249  9278 D M3Data  : REQUEST historical/VN?lastdays=all
+10-25 15:14:48.833  9249  9278 D M3Data  : NETWORK country_VN
+10-25 15:14:48.987  9249  9278 D M3Data  : CACHE global
+10-25 15:14:49.182  9249  9278 D M3Data  : CACHE countries
+10-25 15:14:49.285  9249  9278 D M3Data  : CACHE countries
+10-25 15:14:49.302  9249  9278 D M3Data  : NETWORK history_all_-1
+10-25 15:14:49.460  9249  9265 D M3Data  : PARSE historical/VN?lastdays=all thread=Thread-4
+10-25 15:14:49.696  9249  9278 D M3Data  : NETWORK history_VN_-1
+10-25 15:14:50.119  9249  9278 D M3Data  : REQUEST countries/US
+10-25 15:14:50.119  9249  9278 D M3Data  : REQUEST historical/US?lastdays=all
+10-25 15:14:50.501  9249  9264 D M3Data  : PARSE countries/US thread=Thread-3
+10-25 15:14:50.505  9249  9278 D M3Data  : NETWORK country_US
+10-25 15:14:51.255  9249  9266 D M3Data  : PARSE historical/US?lastdays=all thread=Thread-5
+10-25 15:14:51.383  9249  9278 D M3Data  : CACHE global
+10-25 15:14:51.415  9249  9278 D M3Data  : CACHE countries
+10-25 15:14:51.470  9249  9278 D M3Data  : NETWORK history_US_-1
+10-25 15:14:51.565  9249  9278 D M3Data  : CACHE history_all_-1
+10-25 15:14:51.581  9249  9278 D M3Data  : CACHE countries
+10-25 15:14:52.268  9249  9278 D M3Data  : CACHE countries
+10-25 15:14:52.546  9249  9278 D M3Data  : REQUEST countries?sort=cases
+10-25 15:14:54.206  9249  9267 D M3Data  : PARSE countries?sort=cases thread=Thread-6
+10-25 15:14:54.241  9249  9278 D M3Data  : NETWORK countries
+10-25 15:14:54.822  9249  9262 I StorageEvidence: SEED pid=9249 codes=[US, VN]
+10-25 15:14:58.845  9424  9454 D M3Data  : CACHE global
+10-25 15:14:59.171  9424  9454 D M3Data  : CACHE countries
+10-25 15:14:59.638  9424  9454 D M3Data  : CACHE history_all_-1
+10-25 15:14:59.745  9424  9454 D M3Data  : CACHE countries
+10-25 15:15:00.308  9424  9454 D M3Data  : CACHE countries
+10-25 15:15:01.255  9424  9454 D M3Data  : CACHE countries
+10-25 15:15:01.687  9424  9437 I StorageEvidence: OFFLINE pid=9424 visibleAfterLaunchMs=1830 remaining=[US]
+10-25 15:15:03.064  9483  9503 D M3Data  : CACHE global
+10-25 15:15:03.269  9483  9503 D M3Data  : CACHE countries
+10-25 15:15:03.270  9483  9496 I M3CacheProof: phase=read pid=9483 elapsedMs=214 countries=231
+10-25 15:15:08.225  9557  9602 D M3Data  : CACHE global
+10-25 15:15:08.580  9557  9602 D M3Data  : CACHE countries
+10-25 15:15:09.104  9557  9602 D M3Data  : CACHE history_all_-1
+10-25 15:15:09.220  9557  9602 D M3Data  : CACHE countries
+10-25 15:15:09.563  9557  9602 D M3Data  : REQUEST countries?sort=cases
+10-25 15:15:11.597  9557  9573 D M3Data  : PARSE countries?sort=cases thread=Thread-4
+10-25 15:15:11.640  9557  9602 D M3Data  : NETWORK countries
+10-25 15:15:12.733  9557  9570 I StorageEvidence: RECOVERED pid=9557 codes=[US]
+10-25 15:15:13.553  9653  9666 I StorageEvidence: RESTORED original=[VN]
+10-25 15:16:42.255  9801  9832 D M3Data  : CACHE global
+10-25 15:16:42.671  9801  9832 D M3Data  : CACHE countries
+10-25 15:16:43.241  9801  9832 D M3Data  : CACHE history_all_-1
+10-25 15:16:43.381  9801  9832 D M3Data  : CACHE countries
+10-25 15:16:44.892  9801  9832 D M3Data  : REQUEST countries?sort=cases
+10-25 15:16:46.380  9801  9817 D M3Data  : PARSE countries?sort=cases thread=Thread-3
+10-25 15:16:46.419  9801  9832 D M3Data  : NETWORK countries
+10-25 15:16:47.413  9801  9832 D M3Data  : CACHE global
+10-25 15:16:47.461  9801  9832 D M3Data  : CACHE countries
+10-25 15:16:47.661  9801  9832 D M3Data  : CACHE history_all_-1
+10-25 15:16:47.685  9801  9832 D M3Data  : CACHE countries
+10-25 15:16:48.812  9801  9815 I StorageEvidence: PULL_REFRESH_AND_VI passed; locale restored=
