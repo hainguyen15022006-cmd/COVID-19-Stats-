@@ -35,6 +35,7 @@ import vn.edu.usth.covidstats.R;
 import vn.edu.usth.covidstats.data.Callback;
 import vn.edu.usth.covidstats.data.WatchlistStore;
 import vn.edu.usth.covidstats.model.CountryStats;
+import vn.edu.usth.covidstats.util.NetworkUtil;
 
 /**
  * Tab Quoc gia.
@@ -66,6 +67,7 @@ public class CountryListFragment extends Fragment
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView listView;
     private TextView emptyView;
+    private TextView offlineView;
     private View emptyBox;
     private Button retryButton;
     /** Loi cua lan tai gan nhat; null nghia la lan tai truoc thanh cong. */
@@ -95,6 +97,7 @@ public class CountryListFragment extends Fragment
         refreshLayout = view.findViewById(R.id.country_refresh);
         listView = view.findViewById(R.id.country_list);
         emptyView = view.findViewById(R.id.country_empty);
+        offlineView = view.findViewById(R.id.country_offline);
         emptyBox = view.findViewById(R.id.country_empty_box);
         retryButton = view.findViewById(R.id.country_retry);
 
@@ -157,6 +160,9 @@ public class CountryListFragment extends Fragment
                 }
                 refreshLayout.setRefreshing(false);
                 loadError = null;
+                // fromCache cung dung khi cache con moi luc co mang, nen kiem tra them mang.
+                boolean offline = fromCache && !NetworkUtil.isOnline(requireContext());
+                offlineView.setVisibility(offline ? View.VISIBLE : View.GONE);
                 allCountries.clear();
                 allCountries.addAll(data);
                 setUpContinentSpinner();
