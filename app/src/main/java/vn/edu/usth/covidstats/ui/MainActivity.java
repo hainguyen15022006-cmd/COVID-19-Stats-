@@ -16,7 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.fragment.app.Fragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 import vn.edu.usth.covidstats.R;
 
@@ -24,7 +24,6 @@ import vn.edu.usth.covidstats.R;
 public class MainActivity extends AppCompatActivity {
     private ViewPager pager;
     private MainPagerAdapter adapter;
-    private BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT),
                 SystemBarStyle.dark(Color.TRANSPARENT));
         setContentView(R.layout.activity_main);
+        TabLayout tabs = findViewById(R.id.main_tabs);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (view, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            // No bottom padding: the bottom bar adds the navigation bar height itself.
             view.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
+            // The tab bar sits at the bottom, so its colour runs under the navigation bar.
+            tabs.setPadding(0, 0, 0, systemBars.bottom);
             return insets;
         });
 
@@ -46,47 +47,24 @@ public class MainActivity extends AppCompatActivity {
         pager = findViewById(R.id.main_pager);
         adapter = new MainPagerAdapter(getSupportFragmentManager(), getResources());
         pager.setAdapter(adapter);
-        bottomNav = findViewById(R.id.main_bottom_nav);
-        bottomNav.setOnItemSelectedListener(item -> {
-            pager.setCurrentItem(pageForItem(item.getItemId()));
-            return true;
-        });
+        tabs.setupWithViewPager(pager);
+        setTabIcon(tabs, MainPagerAdapter.PAGE_GLOBAL, R.drawable.ic_nav_globe_24);
+        setTabIcon(tabs, MainPagerAdapter.PAGE_COUNTRIES, R.drawable.ic_nav_list_24);
+        setTabIcon(tabs, MainPagerAdapter.PAGE_WATCHLIST, R.drawable.ic_nav_star_24);
         pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                syncChrome(position);
+                setTitle(adapter.getPageTitle(position));
                 invalidateOptionsMenu();
             }
         });
     }
 
-    /** Keeps the bottom bar and the title in step with the page, also after a swipe. */
-    private void syncChrome(int position) {
-        int itemId = itemForPage(position);
-        if (bottomNav.getSelectedItemId() != itemId) {
-            bottomNav.setSelectedItemId(itemId);
+    private static void setTabIcon(TabLayout tabs, int position, int iconRes) {
+        TabLayout.Tab tab = tabs.getTabAt(position);
+        if (tab != null) {
+            tab.setIcon(iconRes);
         }
-        setTitle(adapter.getPageTitle(position));
-    }
-
-    private static int pageForItem(int itemId) {
-        if (itemId == R.id.nav_countries) {
-            return MainPagerAdapter.PAGE_COUNTRIES;
-        }
-        if (itemId == R.id.nav_watchlist) {
-            return MainPagerAdapter.PAGE_WATCHLIST;
-        }
-        return MainPagerAdapter.PAGE_GLOBAL;
-    }
-
-    private static int itemForPage(int page) {
-        if (page == MainPagerAdapter.PAGE_COUNTRIES) {
-            return R.id.nav_countries;
-        }
-        if (page == MainPagerAdapter.PAGE_WATCHLIST) {
-            return R.id.nav_watchlist;
-        }
-        return R.id.nav_global;
     }
 
     @Override
@@ -95,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
         // Restore ViewPager's saved fragments before populating the offscreen tabs.
         // Populating during onCreate can leave duplicate Watchlist views after rotation.
         pager.setOffscreenPageLimit(2);
-        // The pager restores its page after rotation, so sync title and bottom bar here.
-        syncChrome(pager.getCurrentItem());
+        // The pager restores its page after rotation, so set the title here.
+        setTitle(adapter.getPageTitle(pager.getCurrentItem()));
     }
 
     @Override

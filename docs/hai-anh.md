@@ -12,7 +12,7 @@ Ba câu trả lời để sẵn khi thầy hỏi.
   - F13: giữ lâu một nước để gắn/bỏ sao theo dõi.
   - Kéo xuống để làm mới, nút Thử lại khi lỗi, dòng "Đang offline" khi xem dữ liệu cũ.
 - Chạm vào một nước thì mở màn chi tiết, gửi kèm mã `country_iso2`.
-- **`CountryAdapter`** là adapter của `RecyclerView`: mỗi dòng có cờ, tên, số ca và số tử vong.
+- **`CountryAdapter`** là adapter của `RecyclerView`: mỗi dòng có thứ hạng, cờ, tên, số tử vong và số ca nhiễm. Thứ hạng chỉ hiện khi danh sách đang xếp theo một con số và ô tìm kiếm trống (xếp theo tên hoặc đang tìm thì hạng không có nghĩa). Tab Theo dõi dùng chung adapter nhưng không hiện hạng.
 - **Cổng chất lượng:** giữ ma trận kiểm thử T01–T14 (`docs/kiem-thu.md`, issue *Kiem thu T01-T14*), chỉ tính một mục là đạt khi có ảnh hoặc log.
 
 ## 2. Dữ liệu đi vào, đi ra thế nào?

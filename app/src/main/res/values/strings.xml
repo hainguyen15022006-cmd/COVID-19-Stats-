@@ -21,7 +21,6 @@
     <string name="continent_europe">Europe</string>
     <string name="continent_north_america">North America</string>
     <string name="continent_south_america">South America</string>
-    <string name="detail_back">Back</string>
     <string name="detail_back_description">Return to the previous screen</string>
     <string name="detail_country_flag">Flag of %1$s</string>
     <string name="detail_statistics_title">Statistics</string>

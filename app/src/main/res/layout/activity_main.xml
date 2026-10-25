@@ -4,7 +4,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background"
     android:orientation="vertical">
 
     <!-- Title shows the current page name (Global, Countries, Watchlist). -->
@@ -23,15 +22,23 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <!-- Bottom bar replaces the old top tabs. It adds the navigation bar height itself. -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/main_bottom_nav"
+    <!-- TabLayout linked to the ViewPager, placed at the bottom like a navigation bar.
+         MainActivity adds the icons and the navigation bar height. -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/main_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/nav_bg"
-        app:itemActiveIndicatorStyle="@style/Widget.CovidStats.NavIndicator"
-        app:itemIconTint="@color/nav_item"
-        app:itemTextColor="@color/nav_item"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_nav" />
+        app:tabGravity="fill"
+        app:tabIconTint="@color/nav_item"
+        app:tabIndicatorColor="@color/color_primary"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorGravity="top"
+        app:tabIndicatorHeight="3dp"
+        app:tabInlineLabel="false"
+        app:tabMode="fixed"
+        app:tabRippleColor="@color/nav_indicator"
+        app:tabSelectedTextColor="@color/color_primary"
+        app:tabTextAppearance="@style/TextAppearance.Material3.LabelMedium"
+        app:tabTextColor="@color/color_on_surface_variant" />
 </LinearLayout>
