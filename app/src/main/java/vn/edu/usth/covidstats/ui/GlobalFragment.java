@@ -38,6 +38,7 @@ import vn.edu.usth.covidstats.data.Callback;
 import vn.edu.usth.covidstats.data.CovidRepository;
 import vn.edu.usth.covidstats.model.GlobalStats;
 import vn.edu.usth.covidstats.model.HistoricalData;
+import vn.edu.usth.covidstats.util.NetworkUtil;
 
 /** Global summary and history chart, loaded through the shared repository. */
 public class GlobalFragment extends Fragment {
@@ -51,11 +52,14 @@ public class GlobalFragment extends Fragment {
         final MutableLiveData<String> statsError = new MutableLiveData<>();
         final MutableLiveData<String> historyError = new MutableLiveData<>();
         final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
+        /** true khi số đang hiện là dữ liệu cũ trong cache vì máy không có mạng (F12). */
+        final MutableLiveData<Boolean> offline = new MutableLiveData<>(false);
     }
 
     private GlobalModel model;
     private SwipeRefreshLayout refreshLayout;
     private TextView status;
+    private TextView offline;
     private TextView error;
     private Button retry;
     private View statsContainer;
@@ -79,6 +83,7 @@ public class GlobalFragment extends Fragment {
         deathColor = ContextCompat.getColor(requireContext(), R.color.chart_deaths);
         refreshLayout = view.findViewById(R.id.global_refresh);
         status = view.findViewById(R.id.global_status);
+        offline = view.findViewById(R.id.global_offline);
         error = view.findViewById(R.id.global_error);
         retry = view.findViewById(R.id.global_retry);
         statsContainer = view.findViewById(R.id.global_stats);
@@ -136,6 +141,9 @@ public class GlobalFragment extends Fragment {
             }
         });
 
+        model.offline.observe(getViewLifecycleOwner(), isOffline ->
+                offline.setVisibility(Boolean.TRUE.equals(isOffline) ? View.VISIBLE : View.GONE));
+
         model.history.observe(getViewLifecycleOwner(), data -> {
             if (data != null) renderHistory(data);
         });
@@ -174,6 +182,8 @@ public class GlobalFragment extends Fragment {
         repository.getGlobal(forceRefresh, new Callback<GlobalStats>() {
             @Override
             public void onSuccess(GlobalStats data, boolean fromCache) {
+                // fromCache cũng đúng khi cache còn mới lúc có mạng, nên kiểm tra thêm mạng.
+                viewModel.offline.setValue(fromCache && !isOnline());
                 viewModel.stats.setValue(data);
                 viewModel.loading.setValue(false);
                 loadHistory(repository, viewModel);
@@ -188,6 +198,10 @@ public class GlobalFragment extends Fragment {
     }
 
            
+
+    private boolean isOnline() {
+        return getContext() == null || NetworkUtil.isOnline(getContext());
+    }
 
     private void renderStats(GlobalStats stats) {
         NumberFormat numbers = NumberFormat.getIntegerInstance(Locale.getDefault());
