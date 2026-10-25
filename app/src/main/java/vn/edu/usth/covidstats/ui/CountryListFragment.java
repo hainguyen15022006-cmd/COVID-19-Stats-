@@ -166,6 +166,13 @@ public class CountryListFragment extends Fragment
 
     // ----- Tai du lieu -----
 
+    /** Entry point used by the toolbar refresh action. */
+    public void refresh() {
+        if (isAdded() && refreshLayout != null) {
+            load(true);
+        }
+    }
+
     private void load(boolean forceRefresh) {
         refreshLayout.setRefreshing(true);
         CovidApp app = (CovidApp) requireActivity().getApplication();

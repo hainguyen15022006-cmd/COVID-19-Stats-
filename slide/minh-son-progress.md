@@ -89,8 +89,9 @@ own content. Lint independently confirms zero `Overdraw` findings.
 
 - Global, Country list, Country detail/chart and Watchlist are all integrated.
 - T11 and T13 no longer wait for another screen branch.
-- `origin/feat/core-utils` and `origin/fix/demo-offline-chart` remain separate
-  remote branches and were not mixed into this resources commit.
+- `origin/main` now includes core utilities, offline/chart fixes, storage and the
+  complete T01-T14 evidence set. The resources branch is rebased by merge on
+  top of that integrated state.
 
 ## 90-second speaking notes
 

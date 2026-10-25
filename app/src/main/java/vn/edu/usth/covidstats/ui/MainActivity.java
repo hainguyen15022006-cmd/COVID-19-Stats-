@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         if (refresh != null) {
             int page = pager.getCurrentItem();
             refresh.setVisible(page == MainPagerAdapter.PAGE_GLOBAL
+                    || page == MainPagerAdapter.PAGE_COUNTRIES
                     || page == MainPagerAdapter.PAGE_WATCHLIST);
         }
         return super.onPrepareOptionsMenu(menu);
@@ -80,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 if (page == MainPagerAdapter.PAGE_GLOBAL && fragment instanceof GlobalFragment) {
                     ((GlobalFragment) fragment).refresh();
+                    break;
+                }
+                if (page == MainPagerAdapter.PAGE_COUNTRIES
+                        && fragment instanceof CountryListFragment) {
+                    ((CountryListFragment) fragment).refresh();
                     break;
                 }
                 if (page == MainPagerAdapter.PAGE_WATCHLIST && fragment instanceof WatchlistFragment) {
