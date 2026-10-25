@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
         pager = findViewById(R.id.main_pager);
         pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), getResources()));
-        pager.setOffscreenPageLimit(2);
         TabLayout tabs = findViewById(R.id.main_tabs);
         tabs.setupWithViewPager(pager);
         pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -50,38 +49,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Restore ViewPager's saved fragments before populating the offscreen tabs.
+        // Populating during onCreate can leave duplicate Watchlist views after rotation.
+        pager.setOffscreenPageLimit(2);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
     @Override
-public boolean onPrepareOptionsMenu(Menu menu) {
-    MenuItem refresh = menu.findItem(R.id.action_refresh);
-    if (refresh != null) {
-        int page = pager.getCurrentItem();
-        refresh.setVisible(page == MainPagerAdapter.PAGE_GLOBAL
-                || page == MainPagerAdapter.PAGE_WATCHLIST);
-    }
-    return super.onPrepareOptionsMenu(menu);
-}
-
-   @Override
-public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    if (item.getItemId() == R.id.action_refresh) {
-        int page = pager.getCurrentItem();
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            if (page == MainPagerAdapter.PAGE_GLOBAL && fragment instanceof GlobalFragment) {
-                ((GlobalFragment) fragment).refresh();
-                break;
-            }
-            if (page == MainPagerAdapter.PAGE_WATCHLIST && fragment instanceof WatchlistFragment) {
-                ((WatchlistFragment) fragment).refresh();
-                break;
-            }
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem refresh = menu.findItem(R.id.action_refresh);
+        if (refresh != null) {
+            int page = pager.getCurrentItem();
+            refresh.setVisible(page == MainPagerAdapter.PAGE_GLOBAL
+                    || page == MainPagerAdapter.PAGE_WATCHLIST);
         }
-        return true;
+        return super.onPrepareOptionsMenu(menu);
     }
-    return super.onOptionsItemSelected(item);
-}
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_refresh) {
+            int page = pager.getCurrentItem();
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                if (page == MainPagerAdapter.PAGE_GLOBAL && fragment instanceof GlobalFragment) {
+                    ((GlobalFragment) fragment).refresh();
+                    break;
+                }
+                if (page == MainPagerAdapter.PAGE_WATCHLIST && fragment instanceof WatchlistFragment) {
+                    ((WatchlistFragment) fragment).refresh();
+                    break;
+                }
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
