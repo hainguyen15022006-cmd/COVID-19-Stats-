@@ -46,8 +46,4 @@
         <item name="android:textSize">12sp</item>
     </style>
 
-    <!-- Soft amber pill behind the selected bottom-bar item. -->
-    <style name="Widget.CovidStats.NavIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/nav_indicator</item>
-    </style>
 </resources>
