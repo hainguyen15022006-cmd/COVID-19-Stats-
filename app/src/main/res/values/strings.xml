@@ -90,4 +90,10 @@
     <string name="country_star_description">Followed</string>
     <string name="country_watchlist_added">Added %1$s to the watchlist</string>
     <string name="country_watchlist_removed">Removed %1$s from the watchlist</string>
+    <!-- Dashboard redesign -->
+    <string name="country_row_cases_label">cases</string>
+    <string name="country_row_deaths">%1$s deaths</string>
+    <string name="detail_recovery_percent">%1$d%%</string>
+    <string name="detail_recovery_caption">%1$d%% of cases recovered</string>
+    <string name="detail_recovery_unavailable">Recovery rate unavailable</string>
 </resources>

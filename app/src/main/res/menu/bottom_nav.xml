@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bottom bar items; order matches MainPagerAdapter pages. -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_global"
+        android:icon="@drawable/ic_nav_globe_24"
+        android:title="@string/main_tab_global" />
+    <item
+        android:id="@+id/nav_countries"
+        android:icon="@drawable/ic_nav_list_24"
+        android:title="@string/main_tab_countries" />
+    <item
+        android:id="@+id/nav_watchlist"
+        android:icon="@drawable/ic_nav_star_24"
+        android:title="@string/main_tab_watchlist" />
+</menu>

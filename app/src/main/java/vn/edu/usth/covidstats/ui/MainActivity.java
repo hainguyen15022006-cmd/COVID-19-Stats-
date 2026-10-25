@@ -1,5 +1,6 @@
 package vn.edu.usth.covidstats.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -14,22 +16,27 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.fragment.app.Fragment;
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import vn.edu.usth.covidstats.R;
 
 /** Host cua toolbar va cac tab chinh. */
 public class MainActivity extends AppCompatActivity {
     private ViewPager pager;
+    private MainPagerAdapter adapter;
+    private BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        // Dark design: light status and navigation bar icons.
+        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT),
+                SystemBarStyle.dark(Color.TRANSPARENT));
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (view, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            // No bottom padding: the bottom bar adds the navigation bar height itself.
+            view.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
 
@@ -37,15 +44,49 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         pager = findViewById(R.id.main_pager);
-        pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), getResources()));
-        TabLayout tabs = findViewById(R.id.main_tabs);
-        tabs.setupWithViewPager(pager);
+        adapter = new MainPagerAdapter(getSupportFragmentManager(), getResources());
+        pager.setAdapter(adapter);
+        bottomNav = findViewById(R.id.main_bottom_nav);
+        bottomNav.setOnItemSelectedListener(item -> {
+            pager.setCurrentItem(pageForItem(item.getItemId()));
+            return true;
+        });
         pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                syncChrome(position);
                 invalidateOptionsMenu();
             }
         });
+    }
+
+    /** Keeps the bottom bar and the title in step with the page, also after a swipe. */
+    private void syncChrome(int position) {
+        int itemId = itemForPage(position);
+        if (bottomNav.getSelectedItemId() != itemId) {
+            bottomNav.setSelectedItemId(itemId);
+        }
+        setTitle(adapter.getPageTitle(position));
+    }
+
+    private static int pageForItem(int itemId) {
+        if (itemId == R.id.nav_countries) {
+            return MainPagerAdapter.PAGE_COUNTRIES;
+        }
+        if (itemId == R.id.nav_watchlist) {
+            return MainPagerAdapter.PAGE_WATCHLIST;
+        }
+        return MainPagerAdapter.PAGE_GLOBAL;
+    }
+
+    private static int itemForPage(int page) {
+        if (page == MainPagerAdapter.PAGE_COUNTRIES) {
+            return R.id.nav_countries;
+        }
+        if (page == MainPagerAdapter.PAGE_WATCHLIST) {
+            return R.id.nav_watchlist;
+        }
+        return R.id.nav_global;
     }
 
     @Override
@@ -54,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
         // Restore ViewPager's saved fragments before populating the offscreen tabs.
         // Populating during onCreate can leave duplicate Watchlist views after rotation.
         pager.setOffscreenPageLimit(2);
+        // The pager restores its page after rotation, so sync title and bottom bar here.
+        syncChrome(pager.getCurrentItem());
     }
 
     @Override

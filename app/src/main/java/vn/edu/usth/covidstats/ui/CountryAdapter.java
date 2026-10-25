@@ -49,6 +49,8 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
     /** Ma iso2 cua cac nuoc dang theo doi; dung de hien ngoi sao tren dong. */
     private Set<String> starredCodes = Collections.emptySet();
     private OnCountryLongClickListener longClickListener;
+    /** Show the 1, 2, 3... rank column. Off by default (watchlist). */
+    private boolean showRank;
 
     public CountryAdapter(ImageLoader imageLoader, OnCountryClickListener listener) {
         this.listener = listener;
@@ -63,6 +65,14 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
     public void setStarredCodes(Set<String> codes) {
         this.starredCodes = codes == null ? Collections.emptySet() : new HashSet<>(codes);
         notifyDataSetChanged();
+    }
+
+    /** Bat cot thu hang khi danh sach dang xep theo mot con so. */
+    public void setShowRank(boolean show) {
+        if (showRank != show) {
+            showRank = show;
+            notifyDataSetChanged();
+        }
     }
 
     /** Thay toan bo danh sach dang hien (sau khi loc hoac sap xep lai). */
@@ -84,7 +94,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
     public void onBindViewHolder(@NonNull CountryViewHolder holder, int position) {
         CountryStats country = items.get(position);
         holder.bind(country, imageLoader, listener, longClickListener,
-                starredCodes.contains(country.iso2));
+                starredCodes.contains(country.iso2), showRank ? position + 1 : 0);
     }
 
     @Override
@@ -100,7 +110,10 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
         private final NetworkImageView flag;
         private final ImageView star;
         private final TextView name;
-        private final TextView numbers;
+        private final View numbers;
+        private final TextView rank;
+        private final TextView cases;
+        private final TextView deaths;
 
         CountryViewHolder(@NonNull View row) {
             super(row);
@@ -108,16 +121,30 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
             star = row.findViewById(R.id.country_star);
             name = row.findViewById(R.id.country_name);
             numbers = row.findViewById(R.id.country_numbers);
+            rank = row.findViewById(R.id.country_rank);
+            cases = row.findViewById(R.id.country_cases);
+            deaths = row.findViewById(R.id.country_deaths);
         }
 
         void bind(CountryStats country, ImageLoader imageLoader,
                   OnCountryClickListener listener,
                   OnCountryLongClickListener longClickListener,
-                  boolean starred) {
+                  boolean starred, int rankNumber) {
             NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
             name.setText(country.country);
-            numbers.setText(itemView.getContext().getString(R.string.country_row_numbers,
-                    format.format(country.cases), format.format(country.deaths)));
+            String casesText = format.format(country.cases);
+            String deathsText = format.format(country.deaths);
+            cases.setText(casesText);
+            deaths.setText(itemView.getContext().getString(R.string.country_row_deaths, deathsText));
+            // Screen readers read cases and deaths as one sentence, as before.
+            numbers.setContentDescription(itemView.getContext().getString(
+                    R.string.country_row_numbers, casesText, deathsText));
+            if (rankNumber > 0) {
+                rank.setText(String.format(Locale.ROOT, "%02d", rankNumber));
+                rank.setVisibility(View.VISIBLE);
+            } else {
+                rank.setVisibility(View.GONE);
+            }
             flag.setImageUrl(country.flag, imageLoader);
             star.setVisibility(starred ? View.VISIBLE : View.GONE);
             itemView.setOnClickListener(v -> listener.onCountryClick(country));
