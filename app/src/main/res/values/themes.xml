@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.CovidStats" parent="Theme.Material3.DayNight.NoActionBar">
+    <!-- Dark only: the dashboard design is built for a dark background. -->
+    <style name="Base.Theme.CovidStats" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorOnPrimary">@color/color_on_primary</item>
         <item name="colorPrimaryContainer">@color/color_primary_container</item>
@@ -14,12 +15,12 @@
         <item name="colorOutline">@color/color_outline</item>
         <item name="colorError">@color/color_error</item>
         <item name="colorOnError">@color/color_on_error</item>
-        <item name="android:colorAccent">@color/color_secondary</item>
+        <item name="android:colorAccent">@color/color_primary</item>
         <item name="android:windowBackground">@color/color_background</item>
-        <item name="android:statusBarColor">@color/color_surface</item>
-        <item name="android:navigationBarColor">@color/color_surface</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:statusBarColor">@color/color_background</item>
+        <item name="android:navigationBarColor">@color/nav_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
     </style>
 
     <style name="Theme.CovidStats" parent="Base.Theme.CovidStats" />

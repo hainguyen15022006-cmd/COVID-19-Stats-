@@ -271,7 +271,11 @@ public class CountryListFragment extends Fragment
                 shown.add(country);
             }
         }
-        sort(shown, sortSpinner.getSelectedItemPosition());
+        int sortOption = sortSpinner.getSelectedItemPosition();
+        sort(shown, sortOption);
+        // A rank only means something for a full ranked list, not for search results or A-Z.
+        adapter.setShowRank(query.isEmpty() && (sortOption == SORT_CASES
+                || sortOption == SORT_DEATHS || sortOption == SORT_PER_MILLION));
         adapter.setItems(shown);
         showEmptyViewIfNeeded(shown.isEmpty());
     }
