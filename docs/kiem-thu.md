@@ -22,7 +22,7 @@ Mốc: chạy lần đầu **M3 — 28/10**, chạy lại đủ bộ **M5 — 31
 | T03 | Mất mạng, đã có cache | Công Dương | Hiện dữ liệu lần trước + dòng "Đang offline" | ✅ Đạt | `docs/evidence/kiem-thu-2026-10-25/t03-offline-global.png`, `t03-offline-countries.png`; `docs/evidence/f12-2026-10-24/` |
 | T04 | Parser chịu dữ liệu thiếu | Tấn Thành | Trường thiếu hoặc null không làm crash | ✅ Đạt | `M5ParserRobustnessTest` 4 đạt — null, số cực lớn, thiếu điểm, ngày trùng/sai |
 | T05 | Tìm kiếm | Hải Anh | `viet`, `vn`, `usa`, `us`, `uk` đều ra kết quả; không phân biệt hoa thường | ✅ Đạt | `docs/evidence/kiem-thu-2026-10-25/t05-search-usa.png`, `t05-search-uk.png`, `t05-search-vn.png` |
-| T06 | Sắp xếp, lọc châu lục | Hải Anh | Thứ tự đúng, kết quả lọc đúng | 🟡 Đã tích trên issue, chưa có ảnh | Cần 2 ảnh: sắp xếp theo tử vong, lọc một châu lục |
+| T06 | Sắp xếp, lọc châu lục | Hải Anh | Thứ tự đúng, kết quả lọc đúng | ✅ Đạt | `docs/evidence/kiem-thu-2026-10-25/t06-sort-deaths.png` (USA, Brazil, India dẫn đầu), `t06-filter-asia.png` (chỉ còn nước châu Á) |
 | T07 | Chi tiết quốc gia | Công Thành | Mở đúng nước theo `iso2`; trường bằng 0 hiện dấu `–` | ✅ Đạt | `docs/evidence/kiem-thu-2026-10-25/t07-detail-vn.png`, `t07-zero-dash-tanzania.png` |
 | T08 | Biểu đồ | Công Thành | Đổi 30/90/365/tất cả thì biểu đồ đổi; mặc định là tất cả | ✅ Đạt | `docs/evidence/kiem-thu-2026-10-25/t08-30d.png`, `t08-90d.png`, `t08-365d.png`, `t08-all.png` |
 | T09 | Xoay màn hình | Công Thành + Sỹ Chúc | Không mất dữ liệu, không gọi lại API | ✅ Đạt | `docs/evidence/kiem-thu-2026-10-25/t09-global-landscape.png`, `t09-detail-landscape.png` |
@@ -32,7 +32,7 @@ Mốc: chạy lần đầu **M3 — 28/10**, chạy lại đủ bộ **M5 — 31
 | T13 | Overdraw | Minh Sơn | Ảnh trước/sau thật cho 3 màn chính | ✅ Đạt (ảnh "sau") | `docs/evidence/kiem-thu-2026-10-25/t13-overdraw-global.png`, `t13-overdraw-countries.png`, `t13-overdraw-detail.png` — chủ yếu xanh dương, không có vùng đỏ |
 | T14 | Bàn giao | Hoàng Anh | Clone sạch build được; APK cài và chạy | ✅ Đạt | `docs/evidence/kiem-thu-2026-10-25/t14-clean-build-run.png` — clone sạch main f263f5f, BUILD SUCCESSFUL 7s |
 
-**Lần chạy đầu (25/10): 13 đạt · 1 thiếu ảnh (T06).** Chạy lại đủ bộ: 31/10 (M5). Kết quả chi tiết trong issue #12.
+**Lần chạy đầu (25/10): 14/14 đạt, đủ bằng chứng.** Chạy lại đủ bộ: 31/10 (M5). Kết quả chi tiết trong issue #12.
 
 ---
 
