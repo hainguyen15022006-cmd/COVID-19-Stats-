@@ -58,9 +58,10 @@
                         android:id="@+id/detail_watchlist_button"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:background="@null"
                         android:contentDescription="@string/watchlist_title"
                         android:enabled="false"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
                         android:padding="12dp"
                         android:src="@drawable/ic_star_outline_24" />
                 </LinearLayout>
@@ -176,7 +177,8 @@
                     android:id="@+id/detail_history_chart"
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
-                    android:layout_marginTop="4dp" />
+                    android:layout_marginTop="4dp"
+                    android:background="@null" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
