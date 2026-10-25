@@ -1,5 +1,6 @@
 package vn.edu.usth.covidstats.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -135,6 +137,22 @@ public class CountryListFragment extends Fragment
             }
         });
         load(false);
+    }
+
+    @Override
+    public void onPause() {
+        // ViewPager giu ca ba tab song cung luc, nen o tim van giu con tro khi
+        // nguoi dung vuot sang tab khac va ban phim di theo, che mat man hinh do.
+        // Roi tab nay thi nha con tro va dong ban phim lai.
+        if (searchInput != null && searchInput.hasFocus()) {
+            InputMethodManager keyboard = (InputMethodManager)
+                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (keyboard != null) {
+                keyboard.hideSoftInputFromWindow(searchInput.getWindowToken(), 0);
+            }
+            searchInput.clearFocus();
+        }
+        super.onPause();
     }
 
     @Override
