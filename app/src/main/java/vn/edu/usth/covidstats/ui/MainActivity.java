@@ -56,23 +56,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem refresh = menu.findItem(R.id.action_refresh);
-        if (refresh != null) {
-            refresh.setVisible(pager.getCurrentItem() == MainPagerAdapter.PAGE_GLOBAL);
-        }
-        return super.onPrepareOptionsMenu(menu);
+public boolean onPrepareOptionsMenu(Menu menu) {
+    MenuItem refresh = menu.findItem(R.id.action_refresh);
+    if (refresh != null) {
+        int page = pager.getCurrentItem();
+        refresh.setVisible(page == MainPagerAdapter.PAGE_GLOBAL
+                || page == MainPagerAdapter.PAGE_WATCHLIST);
     }
+    return super.onPrepareOptionsMenu(menu);
+}
 
-    @Override
+   @Override
 public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId() == R.id.action_refresh) {
-        if (pager.getCurrentItem() == MainPagerAdapter.PAGE_GLOBAL) {
-            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                if (fragment instanceof GlobalFragment) {
-                    ((GlobalFragment) fragment).refresh();
-                    break;
-                }
+        int page = pager.getCurrentItem();
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            if (page == MainPagerAdapter.PAGE_GLOBAL && fragment instanceof GlobalFragment) {
+                ((GlobalFragment) fragment).refresh();
+                break;
+            }
+            if (page == MainPagerAdapter.PAGE_WATCHLIST && fragment instanceof WatchlistFragment) {
+                ((WatchlistFragment) fragment).refresh();
+                break;
             }
         }
         return true;
