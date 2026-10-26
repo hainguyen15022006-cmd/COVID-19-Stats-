@@ -45,6 +45,8 @@ public class GlobalFragment extends Fragment {
     // Lay tu res/values/colors.xml cua Minh Son: che do toi co ban mau rieng.
     private int caseColor;
     private int deathColor;
+    private int chartTextColor;
+    private int chartGridColor;
         /** Giữ dữ liệu qua xoay màn hình và qua việc vuốt tab. */
     public static class GlobalModel extends ViewModel {
         final MutableLiveData<GlobalStats> stats = new MutableLiveData<>();
@@ -71,6 +73,9 @@ public class GlobalFragment extends Fragment {
     private TextView tests;
     private TextView dataDate;
     private LineChart chart;
+    /** Small trend lines inside the cases and deaths cards. */
+    private LineChart sparkCases;
+    private LineChart sparkDeaths;
     private TextView empty;
     
 
@@ -81,6 +86,8 @@ public class GlobalFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_global, container, false);
         caseColor = ContextCompat.getColor(requireContext(), R.color.chart_cases);
         deathColor = ContextCompat.getColor(requireContext(), R.color.chart_deaths);
+        chartTextColor = ContextCompat.getColor(requireContext(), R.color.chart_text);
+        chartGridColor = ContextCompat.getColor(requireContext(), R.color.chart_grid);
         refreshLayout = view.findViewById(R.id.global_refresh);
         status = view.findViewById(R.id.global_status);
         offline = view.findViewById(R.id.global_offline);
@@ -94,12 +101,16 @@ public class GlobalFragment extends Fragment {
         critical = view.findViewById(R.id.global_critical);
         tests = view.findViewById(R.id.global_tests);
         chart = view.findViewById(R.id.global_chart);
+        sparkCases = view.findViewById(R.id.global_spark_cases);
+        sparkDeaths = view.findViewById(R.id.global_spark_deaths);
         empty = view.findViewById(R.id.global_empty);
         dataDate = view.findViewById(R.id.global_data_date);
 
         refreshLayout.setOnRefreshListener(() -> load(true));
         retry.setOnClickListener(ignored -> load(true));
         configureChart();
+        configureSpark(sparkCases);
+        configureSpark(sparkDeaths);
         return view;
     }
 
@@ -151,6 +162,8 @@ public class GlobalFragment extends Fragment {
         model.historyError.observe(getViewLifecycleOwner(), message -> {
             if (message == null) return;
             chart.clear();
+            sparkCases.clear();
+            sparkDeaths.clear();
             dataDate.setVisibility(View.GONE);
             empty.setText(message);
             empty.setVisibility(View.VISIBLE);
@@ -217,18 +230,22 @@ public class GlobalFragment extends Fragment {
         chart.getDescription().setEnabled(false);
         chart.setNoDataText(getString(R.string.global_history_empty));
         chart.setExtraBottomOffset(8f);
+        chart.setNoDataTextColor(chartTextColor);
 
         Legend legend = chart.getLegend();
         legend.setEnabled(true);
         legend.setTextSize(13f);
         legend.setForm(Legend.LegendForm.LINE);
         legend.setWordWrapEnabled(true);
+        legend.setTextColor(chartTextColor);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
         xAxis.setLabelCount(5, false);
         xAxis.setDrawGridLines(false);
+        xAxis.setTextColor(chartTextColor);
+        xAxis.setAxisLineColor(chartGridColor);
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
@@ -243,6 +260,8 @@ public class GlobalFragment extends Fragment {
         YAxis left = chart.getAxisLeft();
         left.setAxisMinimum(0f);
         left.setTextColor(caseColor);
+        left.setGridColor(chartGridColor);
+        left.setAxisLineColor(chartGridColor);
         left.setValueFormatter(compactFormatter());
 
         YAxis right = chart.getAxisRight();
@@ -250,6 +269,7 @@ public class GlobalFragment extends Fragment {
         right.setAxisMinimum(0f);
         right.setDrawGridLines(false);
         right.setTextColor(deathColor);
+        right.setAxisLineColor(chartGridColor);
         right.setValueFormatter(compactFormatter());
     }
 
@@ -307,6 +327,36 @@ public class GlobalFragment extends Fragment {
         });
     }
 
+    /** A sparkline is a bare line: no axes, labels, legend or touch. */
+    private void configureSpark(LineChart spark) {
+        spark.getDescription().setEnabled(false);
+        spark.getLegend().setEnabled(false);
+        spark.getXAxis().setEnabled(false);
+        spark.getAxisLeft().setEnabled(false);
+        spark.getAxisRight().setEnabled(false);
+        spark.setTouchEnabled(false);
+        spark.setViewPortOffsets(0f, 4f, 0f, 0f);
+        spark.setNoDataText("");
+    }
+
+    private void drawSpark(LineChart spark, List<Entry> entries, int color) {
+        if (entries.isEmpty()) {
+            spark.clear();
+            return;
+        }
+        LineDataSet set = new LineDataSet(new ArrayList<>(entries), "");
+        set.setColor(color);
+        set.setLineWidth(2f);
+        set.setDrawCircles(false);
+        set.setDrawValues(false);
+        set.setHighlightEnabled(false);
+        set.setDrawFilled(true);
+        set.setFillColor(color);
+        set.setFillAlpha(50);
+        spark.setData(new LineData(set));
+        spark.invalidate();
+    }
+
     private void renderHistory(HistoricalData data) {
         chartDates.clear();
         chartDates.addAll(data.dates);
@@ -340,6 +390,8 @@ public class GlobalFragment extends Fragment {
         deathSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
         chart.setData(new LineData(caseSet, deathSet));
         chart.invalidate();
+        drawSpark(sparkCases, caseEntries, caseColor);
+        drawSpark(sparkDeaths, deathEntries, deathColor);
         if (!data.lastDataDate.isEmpty()) {
             dataDate.setText(getString(R.string.global_data_as_of,
                     formatDate(data.lastDataDate, "yMMMd")));

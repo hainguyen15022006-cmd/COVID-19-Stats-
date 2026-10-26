@@ -22,7 +22,6 @@
     <string name="continent_europe">Châu Âu</string>
     <string name="continent_north_america">Bắc Mỹ</string>
     <string name="continent_south_america">Nam Mỹ</string>
-    <string name="detail_back">Quay lại</string>
     <string name="detail_back_description">Trở về màn hình trước</string>
     <string name="detail_country_flag">Cờ của %1$s</string>
     <string name="detail_statistics_title">Số liệu thống kê</string>
@@ -91,4 +90,10 @@
     <string name="country_star_description">Đang theo dõi</string>
     <string name="country_watchlist_added">Đã thêm %1$s vào danh sách theo dõi</string>
     <string name="country_watchlist_removed">Đã bỏ %1$s khỏi danh sách theo dõi</string>
+    <!-- Dashboard redesign -->
+    <string name="country_row_cases_label">ca nhiễm</string>
+    <string name="country_row_deaths">%1$s tử vong</string>
+    <string name="detail_recovery_percent">%1$d%%</string>
+    <string name="detail_recovery_caption">%1$d%% số ca đã hồi phục</string>
+    <string name="detail_recovery_unavailable">Chưa có tỷ lệ hồi phục</string>
 </resources>

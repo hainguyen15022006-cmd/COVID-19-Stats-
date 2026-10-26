@@ -78,7 +78,7 @@ dependencyResolutionManagement {
 | JSON | `org.json` (`JSONObject` / `JSONArray`) |
 | Charts | MPAndroidChart `v3.1.0` (via JitPack) |
 | Lists | `RecyclerView` with a `ViewHolder` |
-| Navigation | `ViewPager` + `TabLayout`, three tabs |
+| Navigation | `ViewPager` + `TabLayout`, three tabs with icons in a bottom bar |
 | Images | Volley `ImageLoader` with an in-memory `LruCache` |
 | Storage | JSON files in `getFilesDir()`; `SharedPreferences` for the watchlist |
 
@@ -166,7 +166,7 @@ app/src/main/java/vn/edu/usth/covidstats/
 │   ├── CountryStats.java
 │   └── HistoricalData.java
 ├── ui/
-│   ├── MainActivity.java      Toolbar + ViewPager + TabLayout
+│   ├── MainActivity.java      Toolbar + ViewPager + bottom TabLayout
 │   ├── GlobalFragment.java
 │   ├── CountryListFragment.java
 │   ├── WatchlistFragment.java

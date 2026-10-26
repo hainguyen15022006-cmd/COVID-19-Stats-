@@ -1,5 +1,6 @@
 package vn.edu.usth.covidstats.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -21,15 +23,21 @@ import vn.edu.usth.covidstats.R;
 /** Host cua toolbar va cac tab chinh. */
 public class MainActivity extends AppCompatActivity {
     private ViewPager pager;
+    private MainPagerAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        // Dark design: light status and navigation bar icons.
+        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT),
+                SystemBarStyle.dark(Color.TRANSPARENT));
         setContentView(R.layout.activity_main);
+        TabLayout tabs = findViewById(R.id.main_tabs);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (view, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            view.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
+            // The tab bar sits at the bottom, so its colour runs under the navigation bar.
+            tabs.setPadding(0, 0, 0, systemBars.bottom);
             return insets;
         });
 
@@ -37,15 +45,36 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         pager = findViewById(R.id.main_pager);
-        pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), getResources()));
-        TabLayout tabs = findViewById(R.id.main_tabs);
+        adapter = new MainPagerAdapter(getSupportFragmentManager(), getResources());
+        pager.setAdapter(adapter);
         tabs.setupWithViewPager(pager);
+        setTabIcon(tabs, MainPagerAdapter.PAGE_GLOBAL, R.drawable.ic_nav_globe_24);
+        setTabIcon(tabs, MainPagerAdapter.PAGE_COUNTRIES, R.drawable.ic_nav_list_24);
+        setTabIcon(tabs, MainPagerAdapter.PAGE_WATCHLIST, R.drawable.ic_nav_star_24);
         pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                showPageTitle(position);
                 invalidateOptionsMenu();
             }
         });
+    }
+
+    /**
+     * Sets the toolbar title to the open page. Goes through the action bar because
+     * Activity.setTitle does not replace a title the toolbar already shows.
+     */
+    private void showPageTitle(int position) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(adapter.getPageTitle(position));
+        }
+    }
+
+    private static void setTabIcon(TabLayout tabs, int position, int iconRes) {
+        TabLayout.Tab tab = tabs.getTabAt(position);
+        if (tab != null) {
+            tab.setIcon(iconRes);
+        }
     }
 
     @Override
@@ -54,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         // Restore ViewPager's saved fragments before populating the offscreen tabs.
         // Populating during onCreate can leave duplicate Watchlist views after rotation.
         pager.setOffscreenPageLimit(2);
+        // The pager restores its page after rotation, so set the title here.
+        showPageTitle(pager.getCurrentItem());
     }
 
     @Override

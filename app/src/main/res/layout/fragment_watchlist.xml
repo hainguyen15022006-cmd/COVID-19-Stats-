@@ -8,9 +8,15 @@
         android:id="@+id/watchlist_offline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:accessibilityLiveRegion="polite"
+        android:background="@drawable/bg_banner_offline"
+        android:padding="12dp"
         android:text="@string/watchlist_offline"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/offline_on_container"
+        android:textStyle="bold"
         android:visibility="gone" />
 
     <TextView
@@ -18,12 +24,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:accessibilityLiveRegion="polite"
-        android:text="@string/watchlist_loading" />
+        android:paddingStart="16dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="4dp"
+        android:text="@string/watchlist_loading"
+        android:textColor="@color/color_on_surface_variant" />
 
     <Button
         android:id="@+id/watchlist_retry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="@string/watchlist_retry"
         android:visibility="gone" />
 
