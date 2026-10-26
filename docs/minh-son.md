@@ -8,7 +8,7 @@ Ba câu trả lời để sẵn khi thầy hỏi.
 - **Màu và giao diện:** giao diện tối kiểu "phòng điều hành". `colors.xml` (nền xanh đêm, màu nhấn cam, mỗi chỉ số một màu: ca nhiễm, tử vong, hồi phục...), `styles.xml` (kiểu thẻ, kiểu chữ số), `themes.xml` dựa trên Material 3 Dark, `dimens.xml` cho khoảng cách và cỡ chữ.
 - **Mảng cho spinner:** `arrays.xml` (các lựa chọn sắp xếp) có bản tiếng Việt riêng.
 - **Icon:** icon app (launcher), icon ngôi sao, icon thanh tab dưới đáy, nút quay lại, làm mới, tìm kiếm, tất cả dạng vector.
-- **Tối ưu overdraw (T13):** kiểm tra bằng *Debug GPU overdraw*, ảnh trong `docs/evidence/kiem-thu-2026-10-25/t13-*.png`.
+- **Tối ưu overdraw (T13):** kiểm tra bằng *Debug GPU overdraw*.
 
 ## 2. Dữ liệu đi vào, đi ra thế nào?
 
