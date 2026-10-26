@@ -5,10 +5,11 @@ Ba câu trả lời để sẵn khi thầy hỏi.
 ## 1. Phần này làm gì?
 
 - **`CountryDetailActivity`** (F04, F07) là màn chi tiết một nước:
-  - Cờ, tên, nút Quay lại, nút ☆ gắn sao theo dõi.
+  - Cờ, tên, mũi tên Quay lại, nút ☆ gắn sao theo dõi.
+  - Vòng tròn tỷ lệ hồi phục (số ca hồi phục / tổng ca), tính ngay trong app từ dữ liệu đã tải; nguồn không có số hồi phục thì hiện "–".
   - 8 chỉ số: ca mắc, tử vong, đã khỏi, đang điều trị, xét nghiệm, dân số, ca và tử vong trên một triệu dân.
   - Trường bằng 0 hoặc thiếu hiện dấu **"–"**, kèm chú thích phía dưới (T07).
-  - Biểu đồ lịch sử với 4 lựa chọn **30N / 90N / 365N / TẤT CẢ**, mặc định TẤT CẢ (T08).
+  - Biểu đồ lịch sử với 4 lựa chọn **30N / 90N / 365N / TẤT CẢ** (một thanh bấm liền, vẫn là `RadioGroup`), mặc định TẤT CẢ (T08).
   - Có layout riêng cho màn ngang (`res/layout-land/activity_country_detail.xml`): số bên trái, biểu đồ bên phải.
 - **`ChartHelper`** là lớp dùng chung để vẽ biểu đồ đường, dùng cho cả màn chi tiết và tab Toàn cầu.
 

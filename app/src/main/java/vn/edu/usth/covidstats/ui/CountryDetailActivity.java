@@ -1,5 +1,6 @@
 package vn.edu.usth.covidstats.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,13 +11,19 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.github.mikephil.charting.charts.LineChart;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -63,6 +70,9 @@ public final class CountryDetailActivity extends AppCompatActivity {
     private TextView population;
     private TextView casesPerMillion;
     private TextView deathsPerMillion;
+    private CircularProgressIndicator recoveryRing;
+    private TextView recoveryPercent;
+    private TextView recoveryCaption;
     private TextView historyDate;
     private TextView historyMessage;
     private ProgressBar historyLoading;
@@ -82,7 +92,15 @@ public final class CountryDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Dark design: light status and navigation bar icons.
+        EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT),
+                SystemBarStyle.dark(Color.TRANSPARENT));
         setContentView(R.layout.activity_country_detail);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.detail_root), (view, insets) -> {
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            view.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+            return insets;
+        });
         bindViews();
 
         CovidApp app = (CovidApp) getApplication();
@@ -152,6 +170,9 @@ public final class CountryDetailActivity extends AppCompatActivity {
         population = findViewById(R.id.detail_population_value);
         casesPerMillion = findViewById(R.id.detail_cases_per_million_value);
         deathsPerMillion = findViewById(R.id.detail_deaths_per_million_value);
+        recoveryRing = findViewById(R.id.detail_recovery_ring);
+        recoveryPercent = findViewById(R.id.detail_recovery_percent);
+        recoveryCaption = findViewById(R.id.detail_recovery_caption);
         historyDate = findViewById(R.id.detail_history_date);
         historyMessage = findViewById(R.id.detail_history_message);
         historyLoading = findViewById(R.id.detail_history_loading);
@@ -219,6 +240,21 @@ public final class CountryDetailActivity extends AppCompatActivity {
         population.setText(formatLong(country.population));
         casesPerMillion.setText(formatDouble(country.casesPerOneMillion));
         deathsPerMillion.setText(formatDouble(country.deathsPerOneMillion));
+        showRecoveryRate(country);
+    }
+
+    /** Ring and caption: share of cases that recovered. The source often has no recovered count. */
+    private void showRecoveryRate(CountryStats country) {
+        if (country.cases <= 0 || country.recovered <= 0) {
+            recoveryRing.setProgress(0);
+            recoveryPercent.setText(R.string.detail_value_unavailable);
+            recoveryCaption.setText(R.string.detail_recovery_unavailable);
+            return;
+        }
+        int percent = (int) Math.min(100, Math.round(country.recovered * 100.0 / country.cases));
+        recoveryRing.setProgress(percent);
+        recoveryPercent.setText(getString(R.string.detail_recovery_percent, percent));
+        recoveryCaption.setText(getString(R.string.detail_recovery_caption, percent));
     }
 
     private void loadWatchlistState() {

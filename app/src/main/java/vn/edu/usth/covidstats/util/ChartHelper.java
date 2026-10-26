@@ -113,15 +113,26 @@ public final class ChartHelper {
         chart.setNoDataText(chart.getContext().getString(R.string.detail_history_empty));
         int casesColor = ContextCompat.getColor(chart.getContext(), R.color.chart_cases);
         int deathsColor = ContextCompat.getColor(chart.getContext(), R.color.chart_deaths);
+        // Dark design: light grey labels and dim grid lines so the chart reads on navy.
+        int textColor = ContextCompat.getColor(chart.getContext(), R.color.chart_text);
+        int gridColor = ContextCompat.getColor(chart.getContext(), R.color.chart_grid);
+        chart.setNoDataTextColor(textColor);
+        chart.getLegend().setTextColor(textColor);
         YAxis left = chart.getAxisLeft();
         left.setAxisMinimum(0f);
         left.setTextColor(casesColor);
+        left.setGridColor(gridColor);
+        left.setAxisLineColor(gridColor);
         YAxis right = chart.getAxisRight();
         right.setEnabled(true);
         right.setAxisMinimum(0f);
         right.setDrawGridLines(false);
         right.setTextColor(deathsColor);
+        right.setAxisLineColor(gridColor);
         XAxis xAxis = chart.getXAxis();
+        xAxis.setTextColor(textColor);
+        xAxis.setGridColor(gridColor);
+        xAxis.setAxisLineColor(gridColor);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);

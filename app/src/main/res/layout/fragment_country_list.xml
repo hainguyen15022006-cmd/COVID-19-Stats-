@@ -19,8 +19,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:accessibilityLiveRegion="polite"
+        android:background="@drawable/bg_banner_offline"
+        android:padding="12dp"
         android:text="@string/watchlist_offline"
-        android:textColor="@color/chart_deaths"
+        android:textColor="@color/offline_on_container"
         android:textStyle="bold"
         android:visibility="gone" />
 
@@ -31,32 +33,60 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_field"
+        android:drawableStart="@drawable/ic_search_24"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/color_on_surface_variant"
         android:hint="@string/country_search_hint"
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:maxLines="1"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textColor="@color/color_on_surface"
+        android:textColorHint="@color/color_on_surface_variant"
+        android:textSize="14sp" />
 
+    <!-- Sort and continent filters, each in a dark rounded box. -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
         android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/country_sort"
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:minHeight="48dp" />
+            android:background="@drawable/bg_field">
 
-        <Spinner
-            android:id="@+id/country_continent"
+            <Spinner
+                android:id="@+id/country_sort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="44dp"
+                android:popupBackground="@color/card_bg" />
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_weight="1"
-            android:minHeight="48dp" />
+            android:background="@drawable/bg_field">
+
+            <Spinner
+                android:id="@+id/country_continent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="44dp"
+                android:popupBackground="@color/card_bg" />
+        </FrameLayout>
     </LinearLayout>
 
     <!-- FrameLayout de chong thong bao "khong co ket qua" len tren danh sach -->
@@ -73,7 +103,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/country_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="12dp" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <!-- T02: khung bao loi/rong, co nut Thu lai khi tai that bai. -->
@@ -92,6 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="@color/color_on_surface_variant"
                 android:textSize="16sp" />
 
             <Button

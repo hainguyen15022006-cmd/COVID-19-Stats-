@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Country detail, "control room" style. CountryDetailActivity pads this root for the system bars. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/detail_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -30,34 +33,26 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/detail_back"
-                        android:layout_width="wrap_content"
+                        android:layout_width="48dp"
                         android:layout_height="48dp"
+                        android:layout_marginStart="-12dp"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/detail_back_description"
-                        android:text="@string/detail_back" />
+                        android:padding="12dp"
+                        android:src="@drawable/ic_arrow_back_24" />
 
-                    <com.android.volley.toolbox.NetworkImageView
-                        android:id="@+id/detail_flag"
-                        android:layout_width="64dp"
-                        android:layout_height="42dp"
-                        android:layout_marginStart="12dp"
-                        android:contentDescription="@string/country_flag_description"
-                        android:scaleType="centerCrop" />
-
-                    <TextView
-                        android:id="@+id/detail_country_name"
+                    <Space
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
                     <ImageButton
                         android:id="@+id/detail_watchlist_button"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
+                        android:layout_marginEnd="-12dp"
                         android:background="?android:attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/watchlist_title"
                         android:enabled="false"
@@ -65,44 +60,249 @@
                         android:src="@drawable/ic_star_outline_24" />
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/detail_statistics_title"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <GridLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:columnCount="2"
-                    android:useDefaultMargins="true">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_cases" />
-                    <TextView android:id="@+id/detail_cases_value" android:layout_width="wrap_content" android:textStyle="bold" />
-                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_deaths" />
-                    <TextView android:id="@+id/detail_deaths_value" android:layout_width="wrap_content" android:textStyle="bold" />
-                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_recovered" />
-                    <TextView android:id="@+id/detail_recovered_value" android:layout_width="wrap_content" android:textStyle="bold" />
-                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_active" />
-                    <TextView android:id="@+id/detail_active_value" android:layout_width="wrap_content" android:textStyle="bold" />
-                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_tests" />
-                    <TextView android:id="@+id/detail_tests_value" android:layout_width="wrap_content" android:textStyle="bold" />
-                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_population" />
-                    <TextView android:id="@+id/detail_population_value" android:layout_width="wrap_content" android:textStyle="bold" />
-                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_cases_per_million" />
-                    <TextView android:id="@+id/detail_cases_per_million_value" android:layout_width="wrap_content" android:textStyle="bold" />
-                    <TextView android:layout_width="0dp" android:layout_columnWeight="1" android:text="@string/detail_deaths_per_million" />
-                    <TextView android:id="@+id/detail_deaths_per_million_value" android:layout_width="wrap_content" android:textStyle="bold" />
-                </GridLayout>
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="54dp"
+                        android:layout_height="36dp"
+                        app:cardBackgroundColor="@color/card_bg"
+                        app:cardCornerRadius="6dp"
+                        app:cardElevation="0dp"
+                        app:strokeWidth="0dp">
+
+                        <com.android.volley.toolbox.NetworkImageView
+                            android:id="@+id/detail_flag"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@string/country_flag_description"
+                            android:scaleType="centerCrop" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/detail_country_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/text_strong"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Summary: recovery ring on the left, cases and deaths on the right. -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.CovidStats.Card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="14dp">
+
+                        <FrameLayout
+                            android:layout_width="88dp"
+                            android:layout_height="88dp">
+
+                            <com.google.android.material.progressindicator.CircularProgressIndicator
+                                android:id="@+id/detail_recovery_ring"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                android:max="100"
+                                app:indicatorColor="@color/chart_recovered"
+                                app:indicatorSize="88dp"
+                                app:trackColor="@color/card_stroke"
+                                app:trackCornerRadius="4dp"
+                                app:trackThickness="8dp" />
+
+                            <TextView
+                                android:id="@+id/detail_recovery_percent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:importantForAccessibility="no"
+                                android:text="@string/detail_value_unavailable"
+                                android:textAppearance="@style/TextAppearance.CovidStats.Number"
+                                android:textSize="16sp" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/detail_cases"
+                                android:textAppearance="@style/TextAppearance.CovidStats.Caption" />
+
+                            <TextView
+                                android:id="@+id/detail_cases_value"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:textAppearance="@style/TextAppearance.CovidStats.Number"
+                                android:textColor="@color/chart_cases" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="@string/detail_deaths"
+                                android:textAppearance="@style/TextAppearance.CovidStats.Caption" />
+
+                            <TextView
+                                android:id="@+id/detail_deaths_value"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:textAppearance="@style/TextAppearance.CovidStats.Number"
+                                android:textColor="@color/chart_deaths" />
+
+                            <TextView
+                                android:id="@+id/detail_recovery_caption"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:textColor="@color/chart_recovered"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.CovidStats.Card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:paddingStart="14dp"
+                        android:paddingTop="4dp"
+                        android:paddingEnd="14dp"
+                        android:paddingBottom="4dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:text="@string/detail_recovered"
+                            android:textColor="@color/color_on_surface_variant" />
+                        <TextView
+                            android:id="@+id/detail_recovered_value"
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:fontFamily="monospace"
+                            android:textColor="@color/text_strong"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:text="@string/detail_active"
+                            android:textColor="@color/color_on_surface_variant" />
+                        <TextView
+                            android:id="@+id/detail_active_value"
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:fontFamily="monospace"
+                            android:textColor="@color/text_strong"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:text="@string/detail_tests"
+                            android:textColor="@color/color_on_surface_variant" />
+                        <TextView
+                            android:id="@+id/detail_tests_value"
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:fontFamily="monospace"
+                            android:textColor="@color/text_strong"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:text="@string/detail_population"
+                            android:textColor="@color/color_on_surface_variant" />
+                        <TextView
+                            android:id="@+id/detail_population_value"
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:fontFamily="monospace"
+                            android:textColor="@color/text_strong"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:text="@string/detail_cases_per_million"
+                            android:textColor="@color/color_on_surface_variant" />
+                        <TextView
+                            android:id="@+id/detail_cases_per_million_value"
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:fontFamily="monospace"
+                            android:textColor="@color/text_strong"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_columnWeight="1"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:text="@string/detail_deaths_per_million"
+                            android:textColor="@color/color_on_surface_variant" />
+                        <TextView
+                            android:id="@+id/detail_deaths_per_million_value"
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:fontFamily="monospace"
+                            android:textColor="@color/text_strong"
+                            android:textStyle="bold" />
+
+                    </GridLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/detail_unavailable_explanation"
+                    android:textColor="@color/color_on_surface_variant"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -116,35 +316,52 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:text="@string/detail_history_title"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textAppearance="@style/TextAppearance.CovidStats.Section" />
 
+                <!-- 30D / 90D / 365D / ALL as one segmented bar. Still a RadioGroup, so the Java code is unchanged. -->
                 <RadioGroup
                     android:id="@+id/detail_period_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_segment_group"
                     android:checkedButton="@id/detail_period_all"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="3dp">
 
-                    <RadioButton android:id="@+id/detail_period_30" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1" android:gravity="center" android:text="@string/detail_period_30" />
-                    <RadioButton android:id="@+id/detail_period_90" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1" android:gravity="center" android:text="@string/detail_period_90" />
-                    <RadioButton android:id="@+id/detail_period_365" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1" android:gravity="center" android:text="@string/detail_period_365" />
-                    <RadioButton android:id="@+id/detail_period_all" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1" android:gravity="center" android:text="@string/detail_period_all" />
+                    <RadioButton
+                        android:id="@+id/detail_period_30"
+                        style="@style/Widget.CovidStats.Segment"
+                        android:text="@string/detail_period_30" />
+                    <RadioButton
+                        android:id="@+id/detail_period_90"
+                        style="@style/Widget.CovidStats.Segment"
+                        android:text="@string/detail_period_90" />
+                    <RadioButton
+                        android:id="@+id/detail_period_365"
+                        style="@style/Widget.CovidStats.Segment"
+                        android:text="@string/detail_period_365" />
+                    <RadioButton
+                        android:id="@+id/detail_period_all"
+                        style="@style/Widget.CovidStats.Segment"
+                        android:text="@string/detail_period_all" />
                 </RadioGroup>
 
                 <TextView
                     android:id="@+id/detail_history_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/color_on_surface" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:text="@string/detail_source_stopped"
+                    android:textColor="@color/color_on_surface_variant"
                     android:textSize="12sp" />
 
                 <ProgressBar
@@ -153,15 +370,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="16dp"
                     android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/detail_history_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:gravity="center"
+                    android:textColor="@color/color_on_surface_variant"
                     android:visibility="gone" />
 
                 <Button
@@ -172,11 +390,14 @@
                     android:text="@string/detail_retry"
                     android:visibility="gone" />
 
+                <!-- The chart sits on a dark card background. -->
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/detail_history_chart"
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
-                    android:layout_marginTop="4dp" />
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_field"
+                    android:padding="6dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -201,6 +422,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/color_on_surface"
             android:textSize="16sp" />
 
         <Button

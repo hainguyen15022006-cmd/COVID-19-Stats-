@@ -6,23 +6,38 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- Title shows the current page name (Global, Countries, Watchlist). -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorSurface"
-        app:title="@string/app_name" />
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/main_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabMode="fixed"
-        app:tabGravity="fill" />
+        android:background="@android:color/transparent"
+        app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+        app:titleTextColor="@color/text_strong" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/main_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
+
+    <!-- TabLayout linked to the ViewPager, placed at the bottom like a navigation bar.
+         MainActivity adds the icons and the navigation bar height. -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/main_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/nav_bg"
+        app:tabGravity="fill"
+        app:tabIconTint="@color/nav_item"
+        app:tabIndicatorColor="@color/color_primary"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorGravity="top"
+        app:tabIndicatorHeight="3dp"
+        app:tabInlineLabel="false"
+        app:tabMode="fixed"
+        app:tabRippleColor="@color/nav_indicator"
+        app:tabSelectedTextColor="@color/color_primary"
+        app:tabTextAppearance="@style/TextAppearance.Material3.LabelMedium"
+        app:tabTextColor="@color/color_on_surface_variant" />
 </LinearLayout>

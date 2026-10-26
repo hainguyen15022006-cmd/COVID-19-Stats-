@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Global tab, "control room" style: one big cases card, small cards, then the full chart. -->
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/global_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -14,24 +16,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="16dp">
+
+            <!-- Data date with an amber "live" dot. -->
+            <TextView
+                android:id="@+id/global_data_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="6dp"
+                android:drawableStart="@drawable/dot_live"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/color_primary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/global_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:accessibilityLiveRegion="polite"
-                android:paddingBottom="12dp"
-                android:text="@string/global_loading" />
+                android:padding="4dp"
+                android:text="@string/global_loading"
+                android:textColor="@color/color_on_surface_variant" />
 
             <TextView
                 android:id="@+id/global_offline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 android:accessibilityLiveRegion="polite"
-                android:paddingBottom="8dp"
+                android:background="@drawable/bg_banner_offline"
+                android:padding="12dp"
                 android:text="@string/watchlist_offline"
-                android:textColor="@color/chart_deaths"
+                android:textColor="@color/offline_on_container"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -40,103 +62,319 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:accessibilityLiveRegion="assertive"
+                android:padding="4dp"
+                android:textColor="@color/color_error"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/global_retry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:text="@string/global_retry"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/global_data_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:textStyle="italic"
-                android:visibility="gone" />
-                
-            <GridLayout
+            <!-- All stat cards. GlobalFragment shows or hides this block as a whole. -->
+            <LinearLayout
                 android:id="@+id/global_stats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:useDefaultMargins="true">
+                android:orientation="vertical">
 
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_columnWeight="1" android:orientation="vertical" android:padding="12dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:text="@string/global_cases_label" />
-                    <TextView android:id="@+id/global_cases" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:text="@string/detail_value_unavailable" android:textSize="22sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_columnWeight="1" android:orientation="vertical" android:padding="12dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:text="@string/global_deaths_label" />
-                    <TextView android:id="@+id/global_deaths" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:text="@string/detail_value_unavailable" android:textSize="22sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_columnWeight="1" android:orientation="vertical" android:padding="12dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:text="@string/global_recovered_label" />
-                    <TextView android:id="@+id/global_recovered" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:text="@string/detail_value_unavailable" android:textSize="22sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_columnWeight="1" android:orientation="vertical" android:padding="12dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:text="@string/global_active_label" />
-                    <TextView android:id="@+id/global_active" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:text="@string/detail_value_unavailable" android:textSize="22sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_columnWeight="1" android:orientation="vertical" android:padding="12dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:text="@string/global_critical_label" />
-                    <TextView android:id="@+id/global_critical" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:text="@string/detail_value_unavailable" android:textSize="22sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_columnWeight="1" android:orientation="vertical" android:padding="12dp">
-                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:text="@string/global_tests_label" />
-                    <TextView android:id="@+id/global_tests" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:text="@string/detail_value_unavailable" android:textSize="22sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </GridLayout>
+                <!-- Big card: total cases with a small trend line. -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.CovidStats.Card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp">
 
-            <TextView
-                android:id="@+id/global_chart_title"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/global_cases_label"
+                            android:textAppearance="@style/TextAppearance.CovidStats.Caption" />
+
+                        <TextView
+                            android:id="@+id/global_cases"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text="@string/detail_value_unavailable"
+                            android:textAppearance="@style/TextAppearance.CovidStats.Number"
+                            app:autoSizeMaxTextSize="30sp"
+                            app:autoSizeMinTextSize="14sp"
+                            app:autoSizeTextType="uniform" />
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/global_spark_cases"
+                            android:layout_width="match_parent"
+                            android:layout_height="64dp"
+                            android:layout_marginTop="8dp"
+                            android:importantForAccessibility="no" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.CovidStats.Card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/global_deaths_label"
+                            android:textAppearance="@style/TextAppearance.CovidStats.Caption" />
+
+                        <TextView
+                            android:id="@+id/global_deaths"
+                            android:layout_width="match_parent"
+                            android:layout_height="26dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text="@string/detail_value_unavailable"
+                            android:textAppearance="@style/TextAppearance.CovidStats.Number"
+                            android:textColor="@color/chart_deaths"
+                            app:autoSizeMaxTextSize="17sp"
+                            app:autoSizeMinTextSize="10sp"
+                            app:autoSizeTextType="uniform" />
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/global_spark_deaths"
+                            android:layout_width="match_parent"
+                            android:layout_height="26dp"
+                            android:layout_marginTop="6dp"
+                            android:importantForAccessibility="no" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.CovidStats.Card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/global_recovered_label"
+                            android:textAppearance="@style/TextAppearance.CovidStats.Caption" />
+
+                        <TextView
+                            android:id="@+id/global_recovered"
+                            android:layout_width="match_parent"
+                            android:layout_height="26dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text="@string/detail_value_unavailable"
+                            android:textAppearance="@style/TextAppearance.CovidStats.Number"
+                            android:textColor="@color/chart_recovered"
+                            app:autoSizeMaxTextSize="17sp"
+                            app:autoSizeMinTextSize="10sp"
+                            app:autoSizeTextType="uniform" />
+                        <View
+                            android:layout_width="28dp"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_accent_bar"
+                            android:backgroundTint="@color/chart_recovered" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.CovidStats.Card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/global_active_label"
+                            android:textAppearance="@style/TextAppearance.CovidStats.Caption" />
+
+                        <TextView
+                            android:id="@+id/global_active"
+                            android:layout_width="match_parent"
+                            android:layout_height="26dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text="@string/detail_value_unavailable"
+                            android:textAppearance="@style/TextAppearance.CovidStats.Number"
+                            android:textColor="@color/chart_active"
+                            app:autoSizeMaxTextSize="17sp"
+                            app:autoSizeMinTextSize="10sp"
+                            app:autoSizeTextType="uniform" />
+                        <View
+                            android:layout_width="28dp"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_accent_bar"
+                            android:backgroundTint="@color/chart_active" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.CovidStats.Card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/global_critical_label"
+                            android:textAppearance="@style/TextAppearance.CovidStats.Caption" />
+
+                        <TextView
+                            android:id="@+id/global_critical"
+                            android:layout_width="match_parent"
+                            android:layout_height="26dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text="@string/detail_value_unavailable"
+                            android:textAppearance="@style/TextAppearance.CovidStats.Number"
+                            android:textColor="@color/stat_critical"
+                            app:autoSizeMaxTextSize="17sp"
+                            app:autoSizeMinTextSize="10sp"
+                            app:autoSizeTextType="uniform" />
+                        <View
+                            android:layout_width="28dp"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_accent_bar"
+                            android:backgroundTint="@color/stat_critical" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.CovidStats.Card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_columnSpan="2"
+                    android:layout_margin="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/global_tests_label"
+                            android:textAppearance="@style/TextAppearance.CovidStats.Caption" />
+
+                        <TextView
+                            android:id="@+id/global_tests"
+                            android:layout_width="match_parent"
+                            android:layout_height="26dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text="@string/detail_value_unavailable"
+                            android:textAppearance="@style/TextAppearance.CovidStats.Number"
+                            android:textColor="@color/stat_tests"
+                            app:autoSizeMaxTextSize="17sp"
+                            app:autoSizeMinTextSize="10sp"
+                            app:autoSizeTextType="uniform" />
+                        <View
+                            android:layout_width="28dp"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_accent_bar"
+                            android:backgroundTint="@color/stat_tests" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                </GridLayout>
+            </LinearLayout>
+
+            <!-- Full history chart (two axes), unchanged behaviour. -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.CovidStats.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:paddingBottom="8dp"
-                android:text="@string/global_history_label"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="4dp">
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/global_chart"
-                android:layout_width="match_parent"
-                android:layout_height="260dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
-            <TextView
-                android:id="@+id/global_empty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="24dp"
-                android:text="@string/country_empty_no_data"
-                android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/global_chart_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:text="@string/global_history_label"
+                        android:textAppearance="@style/TextAppearance.CovidStats.Section" />
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/global_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="260dp" />
+
+                    <TextView
+                        android:id="@+id/global_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="24dp"
+                        android:text="@string/country_empty_no_data"
+                        android:textColor="@color/color_on_surface_variant"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </ScrollView>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

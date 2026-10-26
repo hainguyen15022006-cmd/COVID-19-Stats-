@@ -4,9 +4,9 @@ Ba câu trả lời để sẵn khi thầy hỏi.
 
 ## 1. Phần này làm gì?
 
-- **`MainActivity`** là màn hình đầu tiên. Có App Bar với nút Refresh, `TabLayout` 3 tab và `ViewPager` để vuốt qua lại: **Toàn cầu**, **Quốc gia**, **Theo dõi**.
+- **`MainActivity`** là màn hình đầu tiên. Có App Bar (tiêu đề đổi theo trang đang mở) với nút Refresh, `ViewPager` để vuốt qua lại, và `TabLayout` 3 tab có icon đặt ở đáy màn hình như thanh điều hướng: **Toàn cầu**, **Quốc gia**, **Theo dõi**.
 - **`MainPagerAdapter`** quyết định trang nào là Fragment nào (`GlobalFragment`, `CountryListFragment`, `WatchlistFragment`) và lấy tên tab từ `strings.xml`, nên tự đổi tiếng Việt.
-- **`GlobalFragment`** (F01, F07) hiện 6 con số toàn cầu (ca nhiễm, tử vong, hồi phục, đang điều trị, nguy kịch, xét nghiệm), dòng "Số liệu tính đến…", và biểu đồ ca nhiễm/tử vong theo thời gian. Có kéo xuống để làm mới, nút Thử lại khi lỗi, và dòng "Đang offline" khi đang xem dữ liệu cũ.
+- **`GlobalFragment`** (F01, F07) hiện 6 con số toàn cầu (ca nhiễm trong thẻ lớn có đường biểu đồ nhỏ; tử vong, hồi phục, đang điều trị, nguy kịch, xét nghiệm trong các thẻ nhỏ), dòng "Số liệu tính đến…", và biểu đồ ca nhiễm/tử vong theo thời gian. Có kéo xuống để làm mới, nút Thử lại khi lỗi, và dòng "Đang offline" khi đang xem dữ liệu cũ.
 - Nút **Refresh** chỉ hiện ở tab Toàn cầu và Theo dõi, bấm thì gọi `refresh()` của đúng tab đang mở.
 
 ## 2. Dữ liệu đi vào, đi ra thế nào?
