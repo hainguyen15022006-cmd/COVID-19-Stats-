@@ -4,44 +4,44 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Material color roles. Amber is the accent, teal the second accent. -->
-    <color name="color_primary">#F5A524</color>
-    <color name="color_on_primary">#1A1200</color>
+    <color name="color_primary">#F5A524</color> <!-- Tab dưới đang chọn: chữ, biểu tượng, vạch trên tab; chấm cạnh ngày dữ liệu; nút chọn khoảng thời gian biểu đồ -->
+    <color name="color_on_primary">#1A1200</color> <!-- 30N 90N -->
     <color name="color_primary_container">#3A2A00</color>
     <color name="color_on_primary_container">#FFDDA0</color>
     <color name="color_secondary">#2EC4B6</color>
     <color name="color_on_secondary">#00201D</color>
-    <color name="color_background">#0C141F</color>
+    <color name="color_background">#0C141F</color> <!-- Nền chính của toàn app -->
     <color name="color_on_background">#E6EDF5</color>
     <color name="color_surface">#0C141F</color>
-    <color name="color_on_surface">#E6EDF5</color>
+    <color name="color_on_surface">#E6EDF5</color> <!-- Chữ thông thường, ví dụ tên quốc gia và chữ trong ô tìm kiếm -->
     <color name="color_surface_variant">#142133</color>
-    <color name="color_on_surface_variant">#8597AD</color>
+    <color name="color_on_surface_variant">#8597AD</color> <!-- Chữ phụ, chữ gợi ý trong ô tìm kiếm, tab chưa chọn -->
     <color name="color_outline">#2A3D57</color>
     <color name="color_error">#FF6B5B</color>
     <color name="color_on_error">#2D0000</color>
 
     <!-- One color per statistic, shared by cards, list rows and charts. -->
-    <color name="chart_cases">#2EC4B6</color>
-    <color name="chart_deaths">#FF6B5B</color>
-    <color name="chart_recovered">#6CB4FF</color>
-    <color name="chart_active">#F5A524</color>
-    <color name="stat_critical">#C792EA</color>
-    <color name="stat_tests">#AFC0D4</color>
+    <color name="chart_cases">#2EC4B6</color> <!-- Màu của biểu đồ số ca mắc -->
+    <color name="chart_deaths">#FF6B5B</color> <!-- Màu của biểu đồ số tử vong -->
+    <color name="chart_recovered">#6CB4FF</color> <!-- Màu của biểu đồ số ca đã hồi phục -->
+    <color name="chart_active">#F5A524</color> <!-- Màu của biểu đồ số ca đang điều trị -->
+    <color name="stat_critical">#C792EA</color> <!-- Màu của số ca nguy kịch -->
+    <color name="stat_tests">#AFC0D4</color> <!-- Màu của số ca xét nghiệm -->
 
     <!-- Surfaces and lines. -->
-    <color name="card_bg">#142133</color>
-    <color name="card_stroke">#1F3047</color>
-    <color name="nav_bg">#111C2B</color>
-    <color name="divider">#1A2A3E</color>
+    <color name="card_bg">#142133</color> <!-- Nền thẻ số liệu, từng dòng quốc gia, ô tìm kiếm và ô lọc -->
+    <color name="card_stroke">#1F3047</color> <!-- Đường viền của thẻ và ô tìm kiếm -->
+    <color name="nav_bg">#111C2B</color> <!-- Nền thanh 3 tab dưới cùng -->
+    <color name="divider">#1A2A3E</color> <!-- Đường kẻ ngăn giữa các dòng quốc gia -->
     <color name="chart_text">#8597AD</color>
     <color name="chart_grid">#1F3047</color>
-    <color name="text_strong">#FFFFFFFF</color>
-    <color name="rank_text">#5F7390</color>
-    <color name="nav_indicator">#33F5A524</color>
+    <color name="text_strong">#FFFFFFFF</color> <!-- Tiêu đề trên cùng và các số lớn -->
+    <color name="rank_text">#5F7390</color> <!-- Số thứ tự 01, 02, 03 ở danh sách quốc gia -->
+    <color name="nav_indicator">#33F5A524</color> <!-- Hiệu ứng khi chạm tab và vòng sáng quanh chấm ngày dữ liệu -->
 
     <!-- Offline notice. -->
-    <color name="offline_container">#3A2A00</color>
-    <color name="offline_on_container">#FFD27A</color>
+    <color name="offline_container">#3A2A00</color> <!-- Màu nền của thông báo offline -->
+    <color name="offline_on_container">#FFD27A</color> <!-- Màu chữ của thông báo offline -->
 
-    <color name="launcher_background">#006A6A</color>
+    <color name="launcher_background">#006A6A</color> <!-- Màu nền của icon ứng dụng -->
 </resources>

@@ -2,6 +2,7 @@
 <!-- Country detail, "control room" style. CountryDetailActivity pads this root for the system bars. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/detail_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -406,7 +408,8 @@
         android:id="@+id/detail_loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        tools:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/detail_error_panel"
